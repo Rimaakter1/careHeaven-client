@@ -42,16 +42,10 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn bg-[#0495FF] text-white border-none px-8 text-lg">
+                <div>
+                    <Link to='/login' className="py-3 rounded-lg bg-[#0495FF] text-white border-none px-8 text-lg">
                         Join Us
-                    </label>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-lg mt-3 w-36 p-2 shadow text-lg">
-                        <Link to='/login'><a>Login</a></Link>
-                        <Link to='/register'><a>Register</a></Link>
-                    </ul>
+                    </Link>
                 </div>
             </div>
         </div>

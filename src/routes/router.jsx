@@ -20,6 +20,7 @@ export const router = createBrowserRouter([
                 path: 'available-camps',
                 element: <AvailableCamps></AvailableCamps>
             },
+    
             {
                 path: 'login',
                 element: <Login></Login>

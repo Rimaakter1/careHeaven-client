@@ -33,7 +33,7 @@ export default [
         'warn',
         {
           allowConstantExport: true,
-          node: true
+          // node: true
         },
       ],
     },
