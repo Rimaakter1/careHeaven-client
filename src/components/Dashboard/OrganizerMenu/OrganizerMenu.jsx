@@ -1,5 +1,5 @@
 import { FaUserCircle, FaPlus, FaTasks, FaClipboardList } from "react-icons/fa";
-import DashboardMenu from "../../sharedComponents/DashboardMenu";
+import DashboardMenu from "../../../sharedComponents/DashboardMenu";
 
 const OrganizerMenu = () => {
     const menuItems = [

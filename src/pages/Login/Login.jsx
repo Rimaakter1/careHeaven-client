@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from '../../hooks/useAuth';
 import loginBackground from '../../assets/loginBg.jpg';
+import axios from 'axios';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -21,7 +22,12 @@ const Login = () => {
 
     const handleGoogleLogin = async () => {
         try {
-            await signInWithGoogle();
+            const data = await signInWithGoogle();
+            await axios.post(`http://localhost:5000/users/${data?.user?.email}`, {
+                name: data?.user?.displayName,
+                image: data?.user?.photoURL,
+                email: data?.user?.email,
+            })
             alert("Google login successful!");
         } catch (error) {
             console.error(error.message);

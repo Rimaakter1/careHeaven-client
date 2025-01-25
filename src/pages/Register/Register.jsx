@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from '../../hooks/useAuth';
 import registerImage from '../../assets/registerBg.webp';
+import axios from 'axios';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -13,6 +14,12 @@ const Register = () => {
         try {
             await createUser(data.email, data.password);
             await updateUserProfile(data.displayName, data.photoUrl);
+            await axios.post(`http://localhost:5000/users/${data?.email}`, {
+                name: data?.displayName,
+                image: data?.photoURL,
+                email: data?.email,
+            })
+
             alert("Registration successful!");
         } catch (error) {
             console.error(error.message);
@@ -22,7 +29,12 @@ const Register = () => {
 
     const handleGoogleLogin = async () => {
         try {
-            await signInWithGoogle();
+            const data = await signInWithGoogle();
+            await axios.post(`http://localhost:5000/users/${data?.user?.email}`, {
+                name: data?.user?.displayName,
+                image: data?.user?.photoURL,
+                email: data?.user?.email,
+            })
             alert("Google login successful!");
         } catch (error) {
             console.error(error.message);
