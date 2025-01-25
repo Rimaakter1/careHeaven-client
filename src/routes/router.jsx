@@ -5,6 +5,8 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import AvailableCamps from '../pages/AvailableCamps/AvailableCamps'
 import Dashboard from '../pages/Dashboard/Dashboard'
+import PrivateRoute from './privateRoute'
+import DashboardLayout from '../layouts/DashboardLayout'
 
 
 export const router = createBrowserRouter([
@@ -34,7 +36,15 @@ export const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivateRoute>
+            <DashboardLayout></DashboardLayout>
+        </PrivateRoute>,
+        children: [
+            {
+                path: '',
+                element: <Dashboard></Dashboard>
+            }
+        ]
     }
 
 
