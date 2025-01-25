@@ -5,9 +5,10 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import AvailableCamps from '../pages/AvailableCamps/AvailableCamps'
 import Dashboard from '../pages/Dashboard/Dashboard'
-import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Profile from '../pages/Dashboard/common/profile'
+import AdminRoute from './AdminRoute'
+import PrivateRoute from './PrivateRoute'
 
 
 export const router = createBrowserRouter([
@@ -47,7 +48,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'organizer-profile',
-                element: <PrivateRoute><Profile></Profile></PrivateRoute>
+                element: <PrivateRoute>
+                    <AdminRoute>
+                        <Profile></Profile>
+                    </AdminRoute>
+                </PrivateRoute>
             }
         ]
     }
