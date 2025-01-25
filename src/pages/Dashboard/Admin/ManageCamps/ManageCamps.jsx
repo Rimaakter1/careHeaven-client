@@ -1,15 +1,20 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import CampsRow from "../../../../components/Dashboard/CampsRow/CampsRow";
 
 const ManageCamps = () => {
-    const { data: camps = [], isLoading } = useQuery({
+    const { data: camps = [], isLoading, refetch } = useQuery({
         queryKey: ['camps'],
         queryFn: async () => {
             const { data } = await axios.get('http://localhost:5000/camps');
             return data;
         },
     });
+
+
+
+
 
     if (isLoading) return <h1 className="text-center text-lg text-gray-600">Loading.....</h1>;
 
@@ -35,38 +40,7 @@ const ManageCamps = () => {
                     </thead>
                     <tbody>
                         {camps.map((camp, index) => (
-                            <tr
-                                key={camp._id}
-                                className={`${index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                                    } hover:bg-gray-100 transition duration-150`}
-                            >
-                                <td className="py-3 px-5 border-b border-gray-200 text-gray-800">
-                                    {camp.name}
-                                </td>
-                                <td className="py-3 px-5 border-b border-gray-200 text-gray-600">
-                                    {camp.time}
-                                </td>
-                                <td className="py-3 px-5 border-b border-gray-200 text-gray-600">
-                                    {camp.location}
-                                </td>
-                                <td className="py-3 px-5 border-b border-gray-200 text-gray-600">
-                                    {camp.professionalName}
-                                </td>
-                                <td className="py-3 px-5 border-b border-gray-200 flex justify-center gap-4">
-                                    <button
-                                        onClick={() => console.log("Update:", camp._id)}
-                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 shadow transition duration-200"
-                                    >
-                                        Update
-                                    </button>
-                                    <button
-                                        onClick={() => console.log("Delete:", camp._id)}
-                                        className="bg-red-500 text-white py-1 px-4 rounded-lg hover:bg-red-600 shadow transition duration-200"
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
+                            <CampsRow key={camp._id} camp={camp} refetch={refetch} index={index}></CampsRow>
                         ))}
                         {camps.length === 0 && (
                             <tr>
