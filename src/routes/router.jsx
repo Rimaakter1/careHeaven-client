@@ -7,6 +7,7 @@ import AvailableCamps from '../pages/AvailableCamps/AvailableCamps'
 import Dashboard from '../pages/Dashboard/Dashboard'
 import PrivateRoute from './privateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
+import Profile from '../pages/Dashboard/common/profile'
 
 
 export const router = createBrowserRouter([
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: '',
                 element: <Dashboard></Dashboard>
+            },
+            {
+                path: 'organizer-profile',
+                element: <Profile></Profile>
             }
         ]
     }
