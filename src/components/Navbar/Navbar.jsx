@@ -2,25 +2,27 @@ import React from 'react';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
-
     const { user, logOut } = useAuth();
-    console.log(user);
+
     const handleLogout = () => {
-        logOut()
-    }
+        logOut();
+    };
 
     const links = (
         <>
-            <Link className='mr-8' to='/'><a>Home</a></Link>
-            <Link to='/available-camps'><a>Available Camps</a></Link>
+            <Link className="mr-8" to="/">
+                <a>Home</a>
+            </Link>
+            <Link to="/available-camps">
+                <a>Available Camps</a>
+            </Link>
         </>
     );
 
     return (
-        <div className="navbar bg-[#10273D] lg:px-8 md:px-4">
+        <div className="navbar bg-[#10273D] lg:px-8 md:px-4 z-50 relative">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -39,22 +41,21 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow  text-lg">
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow text-lg"
+                    >
                         {links}
                     </ul>
                 </div>
-                <img className="w-28" src={logo} alt="Logo" />
+                <img className="w-24" src={logo} alt="Logo" />
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 text-white text-lg">
-                    {links}
-                </ul>
+                <ul className="menu menu-horizontal px-1 text-white text-lg">{links}</ul>
             </div>
             <div className="navbar-end">
-                {
-                    user ? <div className="dropdown dropdown-end">
+                {user ? (
+                    <div className="dropdown dropdown-end z-50">
                         <label tabIndex={0} className="cursor-pointer">
-                            <img className='w-10 rounded-full' src={user?.photoURL} alt="" />
+                            <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
                         </label>
                         <ul
                             tabIndex={0}
@@ -62,18 +63,27 @@ const Navbar = () => {
                         >
                             <li className="font-bold mb-2 text-black">{user?.displayName}</li>
                             <li>
-                                <Link to="/dashboard" className="text-sm">Dashboard</Link>
+                                <Link to="/dashboard" className="text-sm">
+                                    Dashboard
+                                </Link>
                             </li>
                             <li>
-                                <button onClick={handleLogout} className="text-sm">Logout</button>
+                                <button onClick={handleLogout} className="text-sm">
+                                    Logout
+                                </button>
                             </li>
                         </ul>
-                    </div> : <div>
-                        <Link to='/login' className="py-3 rounded-lg bg-[#0495FF] text-white border-none px-8 text-lg">
+                    </div>
+                ) : (
+                    <div>
+                        <Link
+                            to="/login"
+                            className="py-3 rounded-lg bg-[#0495FF] text-white border-none px-8 text-lg"
+                        >
                             Join Us
                         </Link>
                     </div>
-                }
+                )}
             </div>
         </div>
     );
