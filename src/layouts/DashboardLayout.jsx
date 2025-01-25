@@ -8,7 +8,7 @@ const DashboardLayout = () => {
             {/* Left Side: Sidebar Component */}
             <Sidebar />
             {/* Right Side: Dashboard Dynamic Content */}
-            <div className="flex-1 md:ml-64 overflow-y-auto max-h-screen">
+            <div className="flex-1 overflow-y-auto max-h-screen">
                 <div className="p-5">
                     {/* Outlet for dynamic contents */}
                     <Outlet />

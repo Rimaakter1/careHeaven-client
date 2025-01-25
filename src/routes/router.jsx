@@ -10,6 +10,7 @@ import Profile from '../pages/Dashboard/common/profile'
 import AdminRoute from './AdminRoute'
 import PrivateRoute from './PrivateRoute'
 import AddACamp from '../pages/Dashboard/Admin/AddACamp/AddACamp'
+import ManageCamps from '../pages/Dashboard/Admin/ManageCamps/ManageCamps'
 
 
 export const router = createBrowserRouter([
@@ -60,6 +61,14 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute>
                     <AdminRoute>
                         <AddACamp></AddACamp>
+                    </AdminRoute>
+                </PrivateRoute>
+            },
+            {
+                path: 'manage-camps',
+                element: <PrivateRoute>
+                    <AdminRoute>
+                        <ManageCamps></ManageCamps>
                     </AdminRoute>
                 </PrivateRoute>
             }
