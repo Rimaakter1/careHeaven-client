@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const DashboardMenu = ({ menuItems, role }) => {
+
+    const { logOut } = useAuth();
+
+    const handleLogout = () => {
+        logOut();
+    };
     return (
         <div className="flex flex-col h-screen w-64 bg-[#10273D] text-white">
             <div className="py-6 text-center border-b border-gray-600">
@@ -23,7 +30,7 @@ const DashboardMenu = ({ menuItems, role }) => {
             </nav>
 
             <div className="px-4 py-6 text-center border-t border-gray-600">
-                <button className="w-full py-2 text-sm font-medium bg-red-500 rounded-lg hover:bg-red-600">
+                <button onClick={handleLogout} className="w-full py-2 text-sm font-medium bg-red-500 rounded-lg hover:bg-red-600">
                     Logout
                 </button>
             </div>

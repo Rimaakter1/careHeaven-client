@@ -4,7 +4,7 @@ import ParticipantMenu from '../ParticipantMenu/ParticipantMenu';
 import useRole from '../../../hooks/useRole';
 
 const Sidebar = () => {
-    const [role, isLoading] = useRole()
+    const [role] = useRole()
 
     return (
         <div>

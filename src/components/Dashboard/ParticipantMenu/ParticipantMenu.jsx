@@ -1,5 +1,5 @@
 import { FaUserCircle, FaChartBar, FaClipboardList, FaCreditCard } from "react-icons/fa";
-import DashboardMenu from "../../../sharedComponents/DashboardMenu";
+import DashboardMenu from "../shared/DashboardMenu";
 
 const ParticipantMenu = () => {
     const menuItems = [
