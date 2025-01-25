@@ -5,7 +5,7 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import AvailableCamps from '../pages/AvailableCamps/AvailableCamps'
 import Dashboard from '../pages/Dashboard/Dashboard'
-import PrivateRoute from './privateRoute'
+import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Profile from '../pages/Dashboard/common/profile'
 
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'organizer-profile',
-                element: <Profile></Profile>
+                element: <PrivateRoute><Profile></Profile></PrivateRoute>
             }
         ]
     }
