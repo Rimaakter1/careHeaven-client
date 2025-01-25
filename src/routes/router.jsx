@@ -9,6 +9,7 @@ import DashboardLayout from '../layouts/DashboardLayout'
 import Profile from '../pages/Dashboard/common/profile'
 import AdminRoute from './AdminRoute'
 import PrivateRoute from './PrivateRoute'
+import AddACamp from '../pages/Dashboard/Admin/AddACamp/AddACamp'
 
 
 export const router = createBrowserRouter([
@@ -51,6 +52,14 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute>
                     <AdminRoute>
                         <Profile></Profile>
+                    </AdminRoute>
+                </PrivateRoute>
+            },
+            {
+                path: 'add-camp',
+                element: <PrivateRoute>
+                    <AdminRoute>
+                        <AddACamp></AddACamp>
                     </AdminRoute>
                 </PrivateRoute>
             }
