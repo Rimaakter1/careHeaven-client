@@ -10,7 +10,7 @@ const PopularCamps = () => {
     const { data: camps = [], isLoading } = useQuery({
         queryKey: ["popularCamps"],
         queryFn: async () => {
-            const response = await axios.get("http://localhost:5000/camps?sort=participants&order=desc&limit=6");
+            const response = await axios.get("http://localhost:5000/camps?sort=participantCount&order=desc&limit=6");
             return response.data;
         },
     });

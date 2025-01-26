@@ -15,9 +15,7 @@ const AvailableCamps = () => {
         },
     });
 
-    const handleViewAll = () => {
-        navigate("/available-camps");
-    };
+    
 
     if (isLoading) {
         return <div>Loading...</div>;
