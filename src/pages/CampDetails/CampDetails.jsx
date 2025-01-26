@@ -1,11 +1,16 @@
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
 import { useParams } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const CampDetails = () => {
+    const [showModal, setShowModal] = useState(false);
+    const { user } = useAuth();
     const { campId } = useParams();
-    const { data: camp = {}, isLoading } = useQuery({
+    const { data: camp = {}, isLoading, refetch
+    } = useQuery({
         queryKey: ["camp", campId],
         queryFn: async () => {
             const response = await axios.get(`http://localhost:5000/camp/${campId}`, {
@@ -14,6 +19,46 @@ const CampDetails = () => {
             return response.data;
         },
     });
+
+    const { register, handleSubmit, setValue } = useForm();
+    React.useEffect(() => {
+        if (camp) {
+            setValue("campName", camp.name);
+            setValue("campFees", camp.Fees);
+            setValue("campLocation", camp.location);
+            setValue("healthcareProfessional", camp.professionalName);
+        }
+    }, [camp, setValue]);
+
+    const onSubmit = async (data) => {
+        const participantData = {
+            campId: camp._id,
+            campName: camp.name,
+            fees: camp.Fees,
+            location: camp.location,
+            professionalName: camp.professionalName,
+            participantName: user.displayName,
+            participantEmail: user.email,
+            age: data.age,
+            phone: data.phone,
+            gender: data.gender,
+            emergencyContact: data.emergencyContact,
+        };
+        console.log(participantData);
+
+        try {
+            const response = await axios.post("http://localhost:5000/participants", participantData, {
+                withCredentials: true,
+            });
+            refetch()
+            if (response.status === 200) {
+                alert("Registration successful!");
+                setShowModal(false);
+            }
+        } catch (error) {
+            alert("Failed to register. Please try again.");
+        }
+    };
 
     if (isLoading) {
         return (
@@ -71,12 +116,142 @@ const CampDetails = () => {
             </div>
 
             <div className="mt-10 flex justify-center">
-                <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 font-semibold text-lg rounded-md shadow-md transition-all"
-                >
+                <button onClick={() => setShowModal(true)} className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 font-semibold text-lg rounded-md shadow-md transition-all">
                     Join Camp
                 </button>
             </div>
+
+            {showModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="bg-white rounded-lg p-6 shadow-lg w-[60%] ">
+                        <h2 className="text-2xl font-semibold text-blue-600 mb-4">
+                            Participant Registration
+                        </h2>
+                        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div>
+                                <label className="font-semibold block">Camp Name:</label>
+                                <input
+                                    type="text"
+                                    value={camp.name}
+                                    disabled
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Camp Fees:</label>
+                                <input
+                                    type="number"
+                                    value={camp.Fees}
+                                    disabled
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Location:</label>
+                                <input
+                                    type="text"
+                                    value={camp.location}
+                                    disabled
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Healthcare Professional:</label>
+                                <input
+                                    type="text"
+                                    value={camp.professionalName}
+                                    disabled
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Your Name:</label>
+                                <input
+                                    type="text"
+                                    value={user.displayName}
+                                    disabled
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Your Email:</label>
+                                <input
+                                    type="email"
+                                    value={user.email}
+                                    disabled
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Age:</label>
+                                <input
+                                    type="number"
+                                    placeholder="Age"
+                                    {...register("age", { required: true })}
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Phone Number:</label>
+                                <input
+                                    type="text"
+                                    placeholder="Phone Number"
+                                    {...register("phone", { required: true })}
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Gender:</label>
+                                <select
+                                    {...register("gender", { required: true })}
+                                    className="border p-2 rounded-md w-full"
+                                >
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="font-semibold block">Emergency Contact:</label>
+                                <input
+                                    type="text"
+                                    placeholder="Emergency Contact"
+                                    {...register("emergencyContact", { required: true })}
+                                    className="border p-2 rounded-md w-full"
+                                />
+                            </div>
+
+                            <div className="flex justify-end space-x-4 col-span-2 mt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowModal(false)}
+                                    className="px-4 py-2 bg-gray-300 text-gray-700 font-bold rounded-md"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="px-4 py-2 bg-blue-600 text-white font-bold rounded-md"
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
