@@ -2,20 +2,19 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import CampCard from "../CampCard/CampCard";
 
 const PopularCamps = () => {
     const navigate = useNavigate();
 
-    // Fetch top six camps by participant count
     const { data: camps = [], isLoading } = useQuery({
         queryKey: ["popularCamps"],
         queryFn: async () => {
-            const response = await axios.get("http://localhost:5000/medical-camps?sort=participants&order=desc&limit=6");
+            const response = await axios.get("http://localhost:5000/camps?sort=participants&order=desc&limit=6");
             return response.data;
         },
     });
 
-    // Navigate to the "Available Camps" page
     const handleViewAll = () => {
         navigate("/available-camps");
     };
@@ -33,34 +32,7 @@ const PopularCamps = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {camps.map((camp) => (
-                    <div
-                        key={camp.id}
-                        className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-                    >
-                        <img
-                            src={camp.image}
-                            alt={camp.name}
-                            className="h-48 w-full object-cover"
-                        />
-                        <div className="p-4">
-                            <h3 className="text-xl font-semibold text-blue-700">{camp.name}</h3>
-                            <p className="text-gray-700 mt-2">
-                                <span className="font-semibold">Fees:</span> ${camp.Fees}
-                            </p>
-                            <p className="text-gray-700 mt-1">
-                                <span className="font-semibold">Date & Time:</span> {new Date(camp.time).toLocaleString()}
-                            </p>
-                            <p className="text-gray-700 mt-1">
-                                <span className="font-semibold">Location:</span> {camp.location}
-                            </p>
-                            <p className="text-gray-700 mt-1">
-                                <span className="font-semibold">Healthcare Professional:</span> {camp.professionalName}
-                            </p>
-                            <p className="text-gray-700 mt-1">
-                                <span className="font-semibold">Participants:</span> {camp.participants}
-                            </p>
-                        </div>
-                    </div>
+                    <CampCard key={camp.id} camp={camp}></CampCard>
                 ))}
             </div>
 
