@@ -4,13 +4,13 @@ import MainLayout from '../layouts/MainLayout'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import AvailableCamps from '../pages/AvailableCamps/AvailableCamps'
-import Dashboard from '../pages/Dashboard/Dashboard'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Profile from '../pages/Dashboard/common/profile'
 import AdminRoute from './AdminRoute'
 import PrivateRoute from './PrivateRoute'
 import AddACamp from '../pages/Dashboard/Admin/AddACamp/AddACamp'
 import ManageCamps from '../pages/Dashboard/Admin/ManageCamps/ManageCamps'
+import UpdateCamp from '../pages/Dashboard/Admin/UpdateCamp/UpdateCamp'
 
 
 export const router = createBrowserRouter([
@@ -45,11 +45,7 @@ export const router = createBrowserRouter([
         </PrivateRoute>,
         children: [
             {
-                path: '',
-                element: <Dashboard></Dashboard>
-            },
-            {
-                path: 'organizer-profile',
+                index: true,
                 element: <PrivateRoute>
                     <AdminRoute>
                         <Profile></Profile>
@@ -71,6 +67,12 @@ export const router = createBrowserRouter([
                         <ManageCamps></ManageCamps>
                     </AdminRoute>
                 </PrivateRoute>
+            },
+            {
+                path: 'update-camp/:id',
+                element: <UpdateCamp />
+
+                ,
             }
         ]
     }

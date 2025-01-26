@@ -3,7 +3,7 @@ import DashboardMenu from "../shared/DashboardMenu";
 
 const OrganizerMenu = () => {
     const menuItems = [
-        { label: "Organizer Profile", path: "/dashboard/organizer-profile", icon: FaUserCircle },
+        { label: "Organizer Profile", path: "/dashboard", icon: FaUserCircle },
         { label: "Add A Camp", path: "/dashboard/add-camp", icon: FaPlus },
         { label: "Manage Camps", path: "/dashboard/manage-camps", icon: FaTasks },
         { label: "Manage Registered Camps", path: "/dashboard/manage-registered-camps", icon: FaClipboardList },

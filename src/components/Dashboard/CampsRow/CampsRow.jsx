@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CampsRow = ({ camp, refetch, index }) => {
     const handleCampDelete = async () => {
         try {
-            await axios.delete(`http://localhost:5000/camps/${camp._id}`, { withCredentials: true })
+            await axios.delete(`http://localhost:5000/delete-camp/${camp._id}`, { withCredentials: true })
             alert('Camp successfully removed.')
             refetch()
         } catch (err) {
@@ -31,12 +32,13 @@ const CampsRow = ({ camp, refetch, index }) => {
                 {camp.professionalName}
             </td>
             <td className="py-3 px-5 border-b border-gray-200 flex justify-center gap-4">
-                <button
-                    onClick={() => console.log("Update:", camp._id)}
+
+                <Link to={`/dashboard/update-camp/${camp._id}`}
+
                     className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 shadow transition duration-200"
                 >
                     Update
-                </button>
+                </Link>
                 <button
                     onClick={handleCampDelete}
                     className="bg-red-500 text-white py-1 px-4 rounded-lg hover:bg-red-600 shadow transition duration-200"
