@@ -17,7 +17,7 @@ const UpdateCamp = () => {
     const { data: camp = {}, isLoading } = useQuery({
         queryKey: ["camp", id],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/medical-camp/${id}`, {
+            const response = await axios.get(`http://localhost:5000/camp/${id}`, {
                 withCredentials: true,
             });
             return response.data;
