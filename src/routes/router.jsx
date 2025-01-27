@@ -14,6 +14,7 @@ import UpdateCamp from '../pages/Dashboard/Admin/UpdateCamp/UpdateCamp'
 import CampDetails from '../pages/CampDetails/CampDetails'
 import ErrorPage from '../pages/ErrorPage/ErrorPage'
 import RegisteredCamps from '../pages/RegisteredCamps/RegisteredCamps'
+import Payment from '../pages/Payment/Payment'
 
 
 export const router = createBrowserRouter([
@@ -82,9 +83,15 @@ export const router = createBrowserRouter([
                 </PrivateRoute>
             },
             {
-                path:'registered-camps',
+                path: 'registered-camps',
                 element: <PrivateRoute>
-                        <RegisteredCamps></RegisteredCamps>
+                    <RegisteredCamps></RegisteredCamps>
+                </PrivateRoute>
+            },
+            {
+                path: 'payment/:id',
+                element: <PrivateRoute>
+                    <Payment></Payment>
                 </PrivateRoute>
             }
         ]

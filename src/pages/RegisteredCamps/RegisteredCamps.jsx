@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const RegisteredCamps = () => {
     const [feedback, setFeedback] = useState("");
@@ -17,7 +18,8 @@ const RegisteredCamps = () => {
 
     console.log(camps);
 
-    
+
+
     const handleCancel = async (campId) => {
         if (confirm("Are you sure you want to cancel this registration?")) {
             await axios.delete(`http://localhost:5000/cancel-registration/${campId}`);
@@ -25,7 +27,6 @@ const RegisteredCamps = () => {
         }
     };
 
-  
 
     if (isLoading) return <div>Loading...</div>;
 
@@ -54,13 +55,12 @@ const RegisteredCamps = () => {
                                 {camp.paymentStatus === "paid" ? (
                                     <span className="text-green-600 font-semibold">Paid</span>
                                 ) : (
-                                    <button
+                                    <Link to={`/dashboard/payment/${camp.campId}`}
                                         className="btn btn-sm btn-primary"
-                                        onClick={() => handlePayment(camp)}
                                         disabled={camp.paymentStatus === "paid"}
                                     >
                                         Pay
-                                    </button>
+                                    </Link>
                                 )}
                             </td>
                             <td className="border border-gray-300 px-4 py-2">
