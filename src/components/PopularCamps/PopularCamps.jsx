@@ -24,7 +24,7 @@ const PopularCamps = () => {
     }
 
     return (
-        <section className="bg-gray-50 py-12 px-4 md:px-16 lg:px-32">
+        <section id="popular-camps" className="bg-gray-50 py-12 px-4 md:px-16 lg:px-32">
             <header className="text-center mb-8">
                 <h2 className="text-4xl font-bold text-blue-700">Popular Medical Camps</h2>
                 <p className="mt-2 text-gray-600">Explore the most attended medical camps hosted by renowned professionals.</p>
