@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 const RegisteredCamps = () => {
     const [feedback, setFeedback] = useState("");
     const { user } = useAuth();
     const queryClient = useQueryClient();
-    const { data: camps = [], isLoading } = useQuery({
+    const { data: camps = [], isLoading, refetch } = useQuery({
         queryKey: ["RegisteredCamps"],
         queryFn: async () => {
             const response = await axios.get(`http://localhost:5000/participants/${user.email}`);
@@ -21,9 +21,13 @@ const RegisteredCamps = () => {
 
 
     const handleCancel = async (campId) => {
+        console.log(campId);
         if (confirm("Are you sure you want to cancel this registration?")) {
-            await axios.delete(`http://localhost:5000/cancel-registration/${campId}`);
-            queryClient.invalidateQueries("RegisteredCamps");
+            await axios.delete(`http://localhost:5000/cancel-registration/${campId}`, {
+                withCredentials: true
+            });
+            refetch()
+            alert('delete')
         }
     };
 
@@ -47,7 +51,7 @@ const RegisteredCamps = () => {
                 </thead>
                 <tbody>
                     {camps.map((camp) => (
-                        <tr key={camp.id} className="text-center">
+                        <tr key={camp.campId} className="text-center">
                             <td className="border border-gray-300 px-4 py-2">{camp.campName}</td>
                             <td className="border border-gray-300 px-4 py-2">{camp.campFees}</td>
                             <td className="border border-gray-300 px-4 py-2">{camp.participantName}</td>
@@ -57,9 +61,11 @@ const RegisteredCamps = () => {
                                 ) : (
                                     <Link to={`/dashboard/payment/${camp.campId}`}
                                         className="btn btn-sm btn-primary"
-                                        disabled={camp.paymentStatus === "paid"}
+                                        disabled={camp.paymentStatus === "Paid"}
                                     >
-                                        Pay
+                                        {
+                                            camp.paymentStatus === "Paid" ? camp.paymentStatus : 'Pay'
+                                        }
                                     </Link>
                                 )}
                             </td>
@@ -69,8 +75,8 @@ const RegisteredCamps = () => {
                             <td className="border border-gray-300 px-4 py-2 space-x-2">
                                 <button
                                     className={`btn btn-sm ${camp.paymentStatus === "paid" ? "btn-disabled" : "btn-warning"}`}
-                                    onClick={() => handleCancel(camp.id)}
-                                    disabled={camp.paymentStatus === "paid"}
+                                    onClick={() => handleCancel(camp.campId)}
+                                    disabled={camp.paymentStatus === "Paid"}
                                 >
                                     Cancel
                                 </button>

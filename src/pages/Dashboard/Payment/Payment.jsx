@@ -3,7 +3,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import CheckoutForm from "../../components/Dashboard/CheckoutForm/CheckoutForm";
+import CheckoutForm from "../../../components/Dashboard/CheckoutForm/CheckoutForm";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
@@ -19,6 +19,7 @@ const Payment = () => {
             return response.data;
         },
     });
+    console.log(camp);
 
     if (isLoading) return <p>Loading camp details...</p>;
     if (error) return <p>Error fetching camp details.</p>;

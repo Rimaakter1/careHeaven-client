@@ -43,6 +43,10 @@ const CampDetails = () => {
             phone: data.phone,
             gender: data.gender,
             emergencyContact: data.emergencyContact,
+            paymentStatus: 'unpaid',
+            paymentConfirmationStatus: 'pending',
+            feedback: 'N/A',
+            
         };
         console.log(participantData);
 
