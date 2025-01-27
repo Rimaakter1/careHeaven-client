@@ -12,13 +12,15 @@ import AddACamp from '../pages/Dashboard/Admin/AddACamp/AddACamp'
 import ManageCamps from '../pages/Dashboard/Admin/ManageCamps/ManageCamps'
 import UpdateCamp from '../pages/Dashboard/Admin/UpdateCamp/UpdateCamp'
 import CampDetails from '../pages/CampDetails/CampDetails'
+import ErrorPage from '../pages/ErrorPage/ErrorPage'
+import RegisteredCamps from '../pages/RegisteredCamps/RegisteredCamps'
 
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout />,
-        // errorElement: <ErrorPage />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/',
@@ -52,9 +54,7 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <PrivateRoute>
-                    <AdminRoute>
-                        <Profile></Profile>
-                    </AdminRoute>
+                    <Profile></Profile>
                 </PrivateRoute>
             },
             {
@@ -80,8 +80,12 @@ export const router = createBrowserRouter([
                         <UpdateCamp></UpdateCamp>
                     </AdminRoute>
                 </PrivateRoute>
-
-                ,
+            },
+            {
+                path:'registered-camps',
+                element: <PrivateRoute>
+                        <RegisteredCamps></RegisteredCamps>
+                </PrivateRoute>
             }
         ]
     }
