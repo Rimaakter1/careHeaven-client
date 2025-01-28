@@ -4,7 +4,7 @@ import axios from "axios";
 
 const ManageRegisteredCamps = () => {
     const { data: registeredParticipants = [], isLoading, refetch } = useQuery({
-        queryKey: ["manageRegisteredregisteredParticipants"],
+        queryKey: ["manageRegisteredParticipants"],
         queryFn: async () => {
             const response = await axios.get("http://localhost:5000/payments", {
                 withCredentials: true,
