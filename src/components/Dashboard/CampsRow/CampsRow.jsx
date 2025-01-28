@@ -17,7 +17,7 @@ const CampsRow = ({ camp, refetch, index }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:5000/delete-camp/${camp._id}`, { withCredentials: true })
+                    await axios.delete(`https://care-heaven-server.vercel.app/delete-camp/${camp._id}`, { withCredentials: true })
                     Swal.fire({
                         title: "Deleted!",
                         text: "Camp been deleted.",

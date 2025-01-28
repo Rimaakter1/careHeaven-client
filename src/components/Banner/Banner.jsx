@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Import required modules
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
 
 const Banner = () => {

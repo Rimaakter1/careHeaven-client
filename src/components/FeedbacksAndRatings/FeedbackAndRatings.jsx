@@ -10,15 +10,15 @@ import "swiper/css/autoplay";
 // Swiper Core Modules
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
-// React Rating Library
 import Rating from "react-rating";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import Loading from "../Loading/Loading";
 
 const FeedbackAndRatings = () => {
     const { data: feedbacks = [], isLoading } = useQuery({
         queryKey: ["feedbacks"],
         queryFn: async () => {
-            const response = await axios.get("http://localhost:5000/feedbacks", {
+            const response = await axios.get("https://care-heaven-server.vercel.app/feedbacks", {
                 withCredentials: true,
             });
             return response.data;
@@ -26,7 +26,7 @@ const FeedbackAndRatings = () => {
     });
 
     if (isLoading) {
-        return <p className="text-center text-gray-500">Loading feedback...</p>;
+        return <Loading></Loading>;
     }
 
     return (

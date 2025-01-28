@@ -15,7 +15,7 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    <div className="ml-5">
+                    <div className="ml-0 lg:ml-5">
                         <h3 className="text-lg font-bold text-blue-700 mb-4">Quick Links</h3>
                         <ul className="space-y-2">
                             <li>
@@ -51,7 +51,6 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Subscribe Section */}
                     <div>
                         <h3 className="text-lg font-bold text-blue-700 mb-4">Subscribe to Updates</h3>
                         <p className="mb-2 text-gray-600">

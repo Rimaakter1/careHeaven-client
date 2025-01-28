@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Modal from "../../../components/Modal/Modal";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import Swal from "sweetalert2";
+import Loading from "../../../components/Loading/Loading";
 
 const RegisteredCamps = () => {
     const [feedback, setFeedback] = useState("");
@@ -21,7 +22,7 @@ const RegisteredCamps = () => {
         queryKey: ["RegisteredCamps"],
         queryFn: async () => {
             const response = await axios.get(
-                `http://localhost:5000/participants/${user.email}`,
+                `https://care-heaven-server.vercel.app/participants/${user.email}`,
                 {
                     withCredentials: true,
                 }
@@ -41,7 +42,7 @@ const RegisteredCamps = () => {
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await axios.delete(`http://localhost:5000/cancel-registration/${campId}`, {
+                await axios.delete(`https://care-heaven-server.vercel.app/cancel-registration/${campId}`, {
                     withCredentials: true,
                 });
                 Swal.fire({
@@ -57,7 +58,7 @@ const RegisteredCamps = () => {
     const handleFeedbackSubmit = async () => {
         if (feedback.trim() && rating > 0) {
             await axios.post(
-                `http://localhost:5000/submit-feedback`,
+                `https://care-heaven-server.vercel.app/submit-feedback`,
                 {
                     campId: selectedCampId,
                     feedback,
@@ -103,7 +104,7 @@ const RegisteredCamps = () => {
         }
     };
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loading></Loading>;
 
     return (
         <section className="py-8 px-4">

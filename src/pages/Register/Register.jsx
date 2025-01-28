@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from '../../hooks/useAuth';
 import registerImage from '../../assets/registerBg.webp';
@@ -10,54 +10,68 @@ import Swal from 'sweetalert2';
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const { createUser, signInWithGoogle, updateUserProfile } = useAuth();
-    const navigate = useNavigation()
+    const navigate = useNavigate()
+    const handleGoogleLogin = async () => {
+        try {
+            const data = await signInWithGoogle();
+            const response = await axios.post(`https://care-heaven-server.vercel.app/users/${data?.user?.email}`, {
+                name: data?.user?.displayName,
+                image: data?.user?.photoURL,
+                email: data?.user?.email,
+                withCredential: true,
+            });
+            if (response.status === 200) {
+                Swal.fire({
+                    title: response.data.message || "Welcome back!",
+                    icon: "success",
+                    draggable: true,
+                });
+                navigate('/')
+            } else if (response.status === 201) {
+                Swal.fire({
+                    title: response.data.message || "Google login successful!",
+                    icon: "success",
+                    draggable: true,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: error.response?.data?.message || "Google login failed. Please try again.",
+            });
+        }
+    };
+
     const onSubmit = async (data) => {
         try {
             await createUser(data.email, data.password);
             await updateUserProfile(data.displayName, data.photoUrl);
-            await axios.post(`http://localhost:5000/users/${data?.email}`, {
-                name: data?.displayName,
-                image: data?.photoURL,
-                email: data?.email,
-            })
 
-            Swal.fire({
-                title: "Registration successful!",
-                icon: "success",
-                draggable: true
+            const response = await axios.post(`https://care-heaven-server.vercel.app/users/${data.email}`, {
+                name: data.displayName,
+                image: data.photoUrl,
+                email: data.email,
             });
-            navigate('/')
+            navigate('/');
+            Swal.fire({
+                title: response.data.message || "Registration successful!",
+                icon: "success",
+                draggable: true,
+            });
+
         } catch (error) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Registration failed. Please try again.",
             });
+
         }
     };
 
-    const handleGoogleLogin = async () => {
-        try {
-            const data = await signInWithGoogle();
-            await axios.post(`http://localhost:5000/users/${data?.user?.email}`, {
-                name: data?.user?.displayName,
-                image: data?.user?.photoURL,
-                email: data?.user?.email,
-            })
-            Swal.fire({
-                title: "Google login successful!",
-                icon: "success",
-                draggable: true
-            });
-            navigate('/')
-        } catch (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Google login failed",
-            });
-        }
-    };
+
+
 
     return (
         <div className='bg-gray-100'>

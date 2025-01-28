@@ -16,7 +16,7 @@ const CheckoutForm = ({ participant }) => {
 
     useEffect(() => {
         if (participant.fees > 0) {
-            axios.post('http://localhost:5000/create-payment-intent', { campFees: participant.fees }, {
+            axios.post('https://care-heaven-server.vercel.app/create-payment-intent', { campFees: participant.fees }, {
                 withCredentials: true
             })
                 .then(res => {
@@ -72,10 +72,10 @@ const CheckoutForm = ({ participant }) => {
                     email: user.email,
                     transactionId: paymentIntent.id,
                     date: new Date(),
-                    status: 'pending',
+                    status: paymentIntent.status,
                     participantId: participant._id
                 }
-                const res = await axios.post('http://localhost:5000/payments', payment);
+                const res = await axios.post('https://care-heaven-server.vercel.app/payments', payment);
                 if (res.data?.paymentResult?.insertedId) {
                     Swal.fire({
                         title: 'Payment Successfully Added',

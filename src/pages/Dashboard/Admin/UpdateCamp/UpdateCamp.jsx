@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import Loading from "../../../../components/Loading/Loading";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -18,7 +19,7 @@ const UpdateCamp = () => {
     const { data: camp = {}, isLoading } = useQuery({
         queryKey: ["camp", id],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/camp/${id}`, {
+            const response = await axios.get(`https://care-heaven-server.vercel.app/camp/${id}`, {
                 withCredentials: true,
             });
             return response.data;
@@ -69,7 +70,7 @@ const UpdateCamp = () => {
             };
 
             const campRes = await axios.put(
-                `http://localhost:5000/update-camp/${id}`,
+                `https://care-heaven-server.vercel.app/update-camp/${id}`,
                 campData,
                 { withCredentials: true }
             );
@@ -101,7 +102,7 @@ const UpdateCamp = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading></Loading>;
     }
 
     return (

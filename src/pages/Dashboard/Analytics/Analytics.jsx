@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
+import Loading from '../../../components/Loading/Loading';
 
 const Analytics = () => {
     const { user } = useAuth();
@@ -10,7 +11,7 @@ const Analytics = () => {
         queryKey: ["registeredCamps"],
         queryFn: async () => {
             const response = await axios.get(
-                `http://localhost:5000/participant-all-camps/${user.email}`,
+                `https://care-heaven-server.vercel.app/participant-all-camps/${user.email}`,
                 {
                     withCredentials: true,
                 }
@@ -20,11 +21,11 @@ const Analytics = () => {
     });
 
     if (isLoading) {
-        return <p className="text-center text-gray-500">Loading...</p>;
+        return <Loading></Loading>;
     }
 
     return (
-        <div className="analytics-container w-11/12 md:w-10/12 mx-auto">
+        <div className="analytics-container w-full md:w-11/12 lg:w-10/12 mx-auto">
             <h2 className="text-2xl font-bold text-center mb-6"> Analytics</h2>
 
             {registeredCamps.length === 0 ? (

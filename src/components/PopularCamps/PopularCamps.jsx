@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import CampCard from "../CampCard/CampCard";
+import Loading from "../Loading/Loading";
 
 const PopularCamps = () => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const PopularCamps = () => {
     const { data: camps = [], isLoading } = useQuery({
         queryKey: ["popularCamps"],
         queryFn: async () => {
-            const response = await axios.get("http://localhost:5000/camps?sort=participantCount&order=desc&limit=6");
+            const response = await axios.get("https://care-heaven-server.vercel.app/camps?sort=participantCount&order=desc&limit=6");
             return response.data;
         },
     });
@@ -20,7 +21,7 @@ const PopularCamps = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading></Loading>;
     }
 
     return (

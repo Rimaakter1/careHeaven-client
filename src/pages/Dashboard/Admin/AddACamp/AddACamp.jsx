@@ -31,7 +31,7 @@ const AddACamp = () => {
                     image: res.data.data.display_url,
                 };
                 const campRes = await axios.post(
-                    "http://localhost:5000/camps",
+                    "https://care-heaven-server.vercel.app/camps",
                     { ...campData, participantCount: 0 },
                     { withCredentials: true }
                 );

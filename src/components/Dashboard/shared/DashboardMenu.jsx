@@ -4,12 +4,11 @@ import useAuth from "../../../hooks/useAuth";
 const DashboardMenu = ({ menuItems, role }) => {
 
     const { logOut } = useAuth();
-
     const handleLogout = () => {
         logOut();
     };
     return (
-        <div className="flex flex-col min-h-screen w-64 bg-[#10273D] text-white">
+        <div className="flex flex-col min-h-screen w-full lg:w-64 bg-[#10273D] text-white">
             <div className="py-6 text-center border-b border-gray-600">
                 <h2 className="text-2xl font-semibold">{role} Dashboard</h2>
             </div>

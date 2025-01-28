@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import CheckoutForm from "../../../components/Dashboard/CheckoutForm/CheckoutForm";
+import Loading from "../../../components/Loading/Loading";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
@@ -12,13 +13,13 @@ const Payment = () => {
     const { data: participant = {}, isLoading, error } = useQuery({
         queryKey: ["participant", id],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/participant/${id}`, {
+            const response = await axios.get(`https://care-heaven-server.vercel.app/participant/${id}`, {
                 withCredentials: true,
             });
             return response.data;
         },
     });
-    if (isLoading) return <p>Loading participant details...</p>;
+    if (isLoading) return <Loading></Loading>;
 
     return (
         <div className="max-w-4xl mx-auto p-6">

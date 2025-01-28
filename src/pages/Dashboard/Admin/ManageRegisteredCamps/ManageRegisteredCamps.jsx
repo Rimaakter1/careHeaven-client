@@ -3,12 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import SearchBar from "../../../../components/SearchBar/SearchBar";
 import Swal from "sweetalert2";
+import Loading from "../../../../components/Loading/Loading";
 
 const ManageRegisteredCamps = () => {
     const { data: registeredParticipants = [], isLoading, refetch } = useQuery({
         queryKey: ["manageRegisteredParticipants"],
         queryFn: async () => {
-            const response = await axios.get("http://localhost:5000/payments", {
+            const response = await axios.get("https://care-heaven-server.vercel.app/payments", {
                 withCredentials: true,
             });
             return response.data;
@@ -42,11 +43,11 @@ const ManageRegisteredCamps = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
         })
-            .then( async (result) => {
+            .then(async (result) => {
                 if (result.isConfirmed) {
                     try {
-                        await axios.delete(`http://localhost:5000/cancel-registered-participant/${participantId}`,{
-                            withCredentials:true
+                        await axios.delete(`https://care-heaven-server.vercel.app/cancel-registered-participant/${participantId}`, {
+                            withCredentials: true
                         });
                         refetch();
                         Swal.fire({
@@ -69,7 +70,7 @@ const ManageRegisteredCamps = () => {
 
     const handleConfirmPayment = async (participantId) => {
         try {
-            await axios.patch(`http://localhost:5000/update-confirmation/${participantId}`, {
+            await axios.patch(`https://care-heaven-server.vercel.app/update-confirmation/${participantId}`, {
                 paymentConfirmationStatus: 'Confirmed',
                 withCredentials: true,
             });
@@ -88,7 +89,7 @@ const ManageRegisteredCamps = () => {
         }
     };
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loading></Loading>;
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);

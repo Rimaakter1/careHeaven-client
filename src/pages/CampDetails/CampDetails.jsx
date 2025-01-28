@@ -5,16 +5,20 @@ import { useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import Loading from "../../components/Loading/Loading";
+import useRole from "../../hooks/useRole";
 
 const CampDetails = () => {
     const [showModal, setShowModal] = useState(false);
     const { user } = useAuth();
     const { campId } = useParams();
+    const [role] = useRole()
+
     const { data: camp = {}, isLoading, refetch
     } = useQuery({
         queryKey: ["camp", campId],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/camp/${campId}`, {
+            const response = await axios.get(`https://care-heaven-server.vercel.app/camp/${campId}`, {
                 withCredentials: true,
             });
             return response.data;
@@ -49,36 +53,41 @@ const CampDetails = () => {
             feedback: 'N/A',
 
         };
-        try {
-            const response = await axios.post("http://localhost:5000/participants", participantData, {
-                withCredentials: true,
-            });
-            refetch()
-            if (response.status === 200) {
-                Swal.fire({
-                    title: "Camp registration successful!",
-                    icon: "success",
-                    draggable: true
+        if (role !== "admin") {
+            try {
+                const response = await axios.post("https://care-heaven-server.vercel.app/participants", participantData, {
+                    withCredentials: true,
                 });
+                refetch()
+                if (response.status === 200) {
+                    Swal.fire({
+                        title: "Camp registration successful!",
+                        icon: "success",
+                        draggable: true
+                    });
 
 
-                setShowModal(false);
+                    setShowModal(false);
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Camp registration failed!",
+                });
             }
-        } catch (error) {
+        }
+        else {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Camp registration failed!",
+                text: "Admin cannot register in camp!",
             });
         }
     };
 
     if (isLoading) {
-        return (
-            <div className="flex justify-center items-center h-screen bg-gray-50">
-                <div className="text-xl font-bold text-gray-600">Loading Camp Details...</div>
-            </div>
-        );
+        return <Loading></Loading>;
     }
 
     if (!camp) {

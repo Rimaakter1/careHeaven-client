@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useRole from "../../../hooks/useRole";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Loading from "../../../components/Loading/Loading";
 
 const Profile = () => {
     const { user, loading, setUser } = useAuth();
@@ -22,7 +23,7 @@ const Profile = () => {
         e.preventDefault();
         try {
             const response = await axios.put(
-                `http://localhost:5000/users/${user.email}`,
+                `https://care-heaven-server.vercel.app/users/${user.email}`,
                 formData,
                 { withCredentials: true }
             );
@@ -50,11 +51,11 @@ const Profile = () => {
         }
     };
 
-    if (loading || isLoading) return <h1>Loading...</h1>;
+    if (loading || isLoading) return <Loading></Loading>;
 
     return (
         <div>
-            <div className="w-6/12 mx-auto bg-white rounded-lg shadow-xl">
+            <div className="w-full lg:w-6/12 mx-auto bg-white rounded-lg shadow-xl">
                 <div className="flex mt-14 justify-center">
                     <img
                         src={user?.photoURL}

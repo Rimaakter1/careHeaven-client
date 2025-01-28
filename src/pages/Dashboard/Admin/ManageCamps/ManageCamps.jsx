@@ -3,12 +3,13 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import CampsRow from "../../../../components/Dashboard/CampsRow/CampsRow";
 import SearchBar from "../../../../components/SearchBar/SearchBar";
+import Loading from "../../../../components/Loading/Loading";
 
 const ManageCamps = () => {
     const { data: camps = [], isLoading, refetch } = useQuery({
         queryKey: ['camps'],
         queryFn: async () => {
-            const { data } = await axios.get('http://localhost:5000/camps');
+            const { data } = await axios.get('https://care-heaven-server.vercel.app/camps');
             return data;
         },
     });
@@ -40,7 +41,7 @@ const ManageCamps = () => {
         }
     };
 
-    if (isLoading) return <h1 className="text-center text-lg text-gray-600">Loading.....</h1>;
+    if (isLoading) return <Loading></Loading>;
 
     return (
         <div className="bg-gradient-to-r from-indigo-50 via-blue-50 to-indigo-50 shadow-lg rounded-lg p-1 md:p-2 lg:p-10 border border-gray-300 max-w-7xl mx-auto">

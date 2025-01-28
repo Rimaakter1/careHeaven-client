@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import SearchBar from "../../../components/SearchBar/SearchBar";
+import Loading from "../../../components/Loading/Loading";
 
 const PaymentHistory = () => {
     const { user } = useAuth();
@@ -13,7 +14,7 @@ const PaymentHistory = () => {
     const { data: payments = [], isLoading } = useQuery({
         queryKey: ["paymentHistory", user.email],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/payments/${user.email}`);
+            const response = await axios.get(`https://care-heaven-server.vercel.app/payments/${user.email}`);
             return response.data;
         },
     });
@@ -35,7 +36,7 @@ const PaymentHistory = () => {
         setCurrentPage(pageNumber);
     };
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loading></Loading>;
 
     return (
         <section className="py-8 px-4">
