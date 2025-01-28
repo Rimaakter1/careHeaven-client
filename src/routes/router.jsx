@@ -16,6 +16,7 @@ import ErrorPage from '../pages/ErrorPage/ErrorPage'
 import RegisteredCamps from '../pages/Dashboard/RegisteredCamps/RegisteredCamps'
 import Payment from '../pages/Dashboard/Payment/Payment'
 import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory'
+import ManageRegisteredCamps from '../pages/Dashboard/Admin/ManageRegisteredCamps/ManageRegisteredCamps'
 
 
 export const router = createBrowserRouter([
@@ -84,6 +85,14 @@ export const router = createBrowserRouter([
                 </PrivateRoute>
             },
             {
+                path: 'manage-registered-camps',
+                element: <PrivateRoute>
+                    <AdminRoute>
+                        <ManageRegisteredCamps></ManageRegisteredCamps>
+                    </AdminRoute>
+                </PrivateRoute>
+            },
+            {
                 path: 'registered-camps',
                 element: <PrivateRoute>
                     <RegisteredCamps></RegisteredCamps>
@@ -100,7 +109,8 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute>
                     <PaymentHistory></PaymentHistory>
                 </PrivateRoute>
-            }
+            },
+
         ]
     }
 

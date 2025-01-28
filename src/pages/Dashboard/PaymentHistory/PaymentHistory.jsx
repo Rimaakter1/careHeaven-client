@@ -6,7 +6,6 @@ import useAuth from "../../../hooks/useAuth";
 const PaymentHistory = () => {
     const { user } = useAuth();
 
-    // Fetch payment history data
     const { data: payments = [], isLoading } = useQuery({
         queryKey: ["paymentHistory", user.email],
         queryFn: async () => {
