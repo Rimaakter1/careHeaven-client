@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const CampDetails = () => {
     const [showModal, setShowModal] = useState(false);
@@ -46,7 +47,7 @@ const CampDetails = () => {
             paymentStatus: 'unpaid',
             paymentConfirmationStatus: 'pending',
             feedback: 'N/A',
-            
+
         };
         console.log(participantData);
 
@@ -56,11 +57,21 @@ const CampDetails = () => {
             });
             refetch()
             if (response.status === 200) {
-                alert("Registration successful!");
+                Swal.fire({
+                    title: "Camp registration successful!",
+                    icon: "success",
+                    draggable: true
+                });
+
+
                 setShowModal(false);
             }
         } catch (error) {
-            alert("Failed to register. Please try again.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Camp registration failed!",
+            });
         }
     };
 

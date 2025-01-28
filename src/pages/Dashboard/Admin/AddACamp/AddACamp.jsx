@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -35,12 +36,20 @@ const AddACamp = () => {
                     { withCredentials: true }
                 );
                 if (campRes.data.insertedId) {
-                    alert("Camp added successfully!");
+                    Swal.fire({
+                        title: "Camp added successfully!",
+                        icon: "success",
+                        draggable: true
+                    });
+                    navigate("/dashboard/manage-camps");
                 }
             }
         } catch (error) {
-            console.error("Error adding camp:", error);
-            alert("Failed to add camp. Please try again.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Failed to add camp. Please try again.",
+            });
         }
     };
 

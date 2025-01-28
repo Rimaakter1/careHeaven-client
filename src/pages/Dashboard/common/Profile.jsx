@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useRole from "../../../hooks/useRole";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Profile = () => {
     const { user, loading, setUser } = useAuth();
@@ -34,10 +35,18 @@ const Profile = () => {
                     email: formData.email,
                 }));
                 setIsEditing(false);
-                alert("Profile updated successfully!");
+                Swal.fire({
+                    title: "Profile updated successfully!",
+                    icon: "success",
+                    draggable: true
+                });
             }
         } catch (err) {
-            console.error("Error updating profile:", err);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Error updating profile. Please try again.",
+            });
             alert("Error updating profile. Please try again.");
         }
     };
@@ -46,7 +55,7 @@ const Profile = () => {
 
     return (
         <div>
-            <div className="w-full max-w-md bg-white rounded-lg shadow-xl">
+            <div className="w-6/12 mx-auto bg-white rounded-lg shadow-xl">
                 <div className="flex mt-14 justify-center">
                     <img
                         src={user?.photoURL}

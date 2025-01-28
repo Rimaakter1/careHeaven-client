@@ -1,22 +1,32 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from '../../hooks/useAuth';
 import loginBackground from '../../assets/loginBg.jpg';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signIn, signInWithGoogle } = useAuth();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         try {
             await signIn(data.email, data.password);
-            alert("Login successful!");
+            Swal.fire({
+                title: "Login Successful",
+                icon: "success",
+                draggable: true
+            });
+            navigate('/')
         } catch (error) {
-            console.error(error.message);
-            alert("Login failed. Please check your credentials.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Login failed. Please check your credentials.",
+            });
         }
     };
 
@@ -28,10 +38,19 @@ const Login = () => {
                 image: data?.user?.photoURL,
                 email: data?.user?.email,
             })
-            alert("Google login successful!");
+            Swal.fire({
+                title: "Google login successful!",
+                icon: "success",
+                draggable: true
+            });
+            navigate('/')
+
         } catch (error) {
-            console.error(error.message);
-            alert("Google login failed.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Google login failed",
+            });
         }
     };
 

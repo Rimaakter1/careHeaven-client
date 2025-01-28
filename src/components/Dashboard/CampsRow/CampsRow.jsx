@@ -1,16 +1,24 @@
 import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const CampsRow = ({ camp, refetch, index }) => {
     const handleCampDelete = async () => {
         try {
             await axios.delete(`http://localhost:5000/delete-camp/${camp._id}`, { withCredentials: true })
-            alert('Camp successfully removed.')
+            Swal.fire({
+                title: "Camp successfully removed.",
+                icon: "success",
+                draggable: true
+            });
             refetch()
         } catch (err) {
-            console.log(err)
-
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Failed to remove",
+            });
         }
     }
 
@@ -23,7 +31,7 @@ const CampsRow = ({ camp, refetch, index }) => {
                 {camp.name}
             </td>
             <td className="py-3 px-5 border-b border-gray-200 text-gray-600">
-                {camp.time}
+                {new Date(camp.time).toLocaleDateString()}
             </td>
             <td className="py-3 px-5 border-b border-gray-200 text-gray-600">
                 {camp.location}

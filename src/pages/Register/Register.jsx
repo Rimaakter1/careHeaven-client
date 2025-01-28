@@ -1,15 +1,16 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from '../../hooks/useAuth';
 import registerImage from '../../assets/registerBg.webp';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const { createUser, signInWithGoogle, updateUserProfile } = useAuth();
-
+    const navigate = useNavigation()
     const onSubmit = async (data) => {
         try {
             await createUser(data.email, data.password);
@@ -20,10 +21,19 @@ const Register = () => {
                 email: data?.email,
             })
 
-            alert("Registration successful!");
+            Swal.fire({
+                title: "Registration successful!",
+                icon: "success",
+                draggable: true
+            });
+            navigate('/')
         } catch (error) {
             console.error(error.message);
-            alert("Registration failed. Please try again.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Registration failed. Please try again.",
+            });
         }
     };
 
@@ -35,10 +45,18 @@ const Register = () => {
                 image: data?.user?.photoURL,
                 email: data?.user?.email,
             })
-            alert("Google login successful!");
+            Swal.fire({
+                title: "Google login successful!",
+                icon: "success",
+                draggable: true
+            });
+            navigate('/')
         } catch (error) {
-            console.error(error.message);
-            alert("Google login failed.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Google login failed",
+            });
         }
     };
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import SearchBar from "../../../../components/SearchBar/SearchBar";
 
 const ManageRegisteredCamps = () => {
     const { data: registeredParticipants = [], isLoading, refetch } = useQuery({
@@ -12,8 +13,23 @@ const ManageRegisteredCamps = () => {
             return response.data;
         },
     });
-    console.log(registeredParticipants);
 
+    const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const rowsPerPage = 10;
+
+    const filteredParticipants = registeredParticipants.filter((participant) => {
+        const query = searchQuery.toLowerCase();
+        return (
+            participant.participantName.toLowerCase().includes(query) ||
+            participant.campName.toLowerCase().includes(query) ||
+            participant.paymentStatus.toLowerCase().includes(query)
+        );
+    });
+
+    const indexOfLastParticipant = currentPage * rowsPerPage;
+    const indexOfFirstParticipant = indexOfLastParticipant - rowsPerPage;
+    const currentParticipants = filteredParticipants.slice(indexOfFirstParticipant, indexOfLastParticipant);
 
     const handleCancel = async (participantId) => {
         if (window.confirm("Are you sure you want to cancel this registration?")) {
@@ -42,9 +58,16 @@ const ManageRegisteredCamps = () => {
 
     if (isLoading) return <div>Loading...</div>;
 
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
     return (
         <section className="py-8 px-4">
             <h1 className="text-3xl font-bold mb-6">All Registered Participants</h1>
+
+            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
             <table className="table-auto w-full border-collapse border border-gray-300">
                 <thead>
                     <tr className="bg-gray-100">
@@ -57,7 +80,7 @@ const ManageRegisteredCamps = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {registeredParticipants.map(participant => (
+                    {currentParticipants.map(participant => (
                         <tr key={participant.participantId} className="text-center">
                             <td className="border border-gray-300 px-4 py-2">{participant.participantName}</td>
                             <td className="border border-gray-300 px-4 py-2">{participant.campName}</td>
@@ -78,9 +101,7 @@ const ManageRegisteredCamps = () => {
                                         disabled={participant.paymentStatus !== "Paid"}
                                         className="btn btn-sm btn-primary"
                                     >
-                                        {
-                                            participant.paymentConfirmationStatus
-                                        }
+                                        Confirm Payment
                                     </button>
                                 )}
                             </td>
@@ -100,8 +121,33 @@ const ManageRegisteredCamps = () => {
                             </td>
                         </tr>
                     ))}
+                    {currentParticipants.length === 0 && (
+                        <tr>
+                            <td colSpan="6" className="py-4 text-center text-gray-500">
+                                No registered camp.
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
+
+            <div className="flex justify-center mt-4">
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    className="btn btn-sm mr-2"
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <span className="font-semibold">{`Page ${currentPage}`}</span>
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    className="btn btn-sm ml-2"
+                    disabled={currentPage * rowsPerPage >= filteredParticipants.length}
+                >
+                    Next
+                </button>
+            </div>
         </section>
     );
 };

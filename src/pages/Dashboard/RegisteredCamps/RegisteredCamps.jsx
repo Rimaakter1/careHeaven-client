@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import Modal from "../../../components/Modal/Modal";
+import SearchBar from "../../../components/SearchBar/SearchBar";
 
 const RegisteredCamps = () => {
     const [feedback, setFeedback] = useState("");
-    const [rating, setRating] = useState(0); 
+    const [rating, setRating] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCampId, setSelectedCampId] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage] = useState(10);
     const { user } = useAuth();
+
     const { data: camps = [], isLoading, refetch } = useQuery({
         queryKey: ["RegisteredCamps"],
         queryFn: async () => {
@@ -38,7 +43,14 @@ const RegisteredCamps = () => {
         if (feedback.trim() && rating > 0) {
             await axios.post(
                 `http://localhost:5000/submit-feedback`,
-                { campId: selectedCampId, feedback, rating, participantName: user.displayName, participantEmail: user.email, photo: user.photoURL },
+                {
+                    campId: selectedCampId,
+                    feedback,
+                    rating,
+                    participantName: user.displayName,
+                    participantEmail: user.email,
+                    photo: user.photoURL,
+                },
                 {
                     withCredentials: true,
                 }
@@ -52,11 +64,30 @@ const RegisteredCamps = () => {
         }
     };
 
+    const filteredCamps = camps.filter((camp) =>
+        camp.campName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredCamps.length / rowsPerPage);
+    const paginatedCamps = filteredCamps.slice(
+        (currentPage - 1) * rowsPerPage,
+        currentPage * rowsPerPage
+    );
+
+    const handlePageChange = (page) => {
+        if (page > 0 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
+
     if (isLoading) return <div>Loading...</div>;
 
     return (
         <section className="py-8 px-4">
             <h1 className="text-3xl font-bold mb-6">My Registered Camps</h1>
+
+            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
             <table className="table-auto w-full border-collapse border border-gray-300">
                 <thead>
                     <tr className="bg-gray-100">
@@ -70,7 +101,7 @@ const RegisteredCamps = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {camps.map((camp) => (
+                    {paginatedCamps.map((camp) => (
                         <tr key={camp.campId} className="text-center">
                             <td className="border border-gray-300 px-4 py-2">{camp.campName}</td>
                             <td className="border border-gray-300 px-4 py-2">{camp.campFees}</td>
@@ -116,12 +147,39 @@ const RegisteredCamps = () => {
                             </td>
                         </tr>
                     ))}
+                    {filteredCamps.length === 0 && (
+                        <tr>
+                            <td colSpan="5" className="py-4 text-center text-gray-500">
+                                No camp found.
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
 
+            <div className="flex justify-center space-x-4 mt-4">
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="btn btn-sm"
+                >
+                    Previous
+                </button>
+                <span className="text-center">
+                    Page {currentPage} of {totalPages}
+                </span>
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="btn btn-sm"
+                >
+                    Next
+                </button>
+            </div>
+
             <Modal
                 isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)} 
+                onClose={() => setIsModalOpen(false)}
                 onSubmit={handleFeedbackSubmit}
                 feedback={feedback}
                 setFeedback={setFeedback}

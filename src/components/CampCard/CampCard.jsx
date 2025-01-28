@@ -36,7 +36,7 @@ const CampCard = ({ camp }) => {
                         to={`/camp-details/${camp._id}`}
                         className="bg-blue-600 text-white p-3 font-bold rounded-lg w-full block text-center"
                     >
-                        View Details
+                        Details
                     </Link>
                 </div>
             </div>

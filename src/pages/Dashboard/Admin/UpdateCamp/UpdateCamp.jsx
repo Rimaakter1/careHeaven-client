@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -10,7 +11,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const UpdateCamp = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [imageName, setImageName] = useState("");  
+    const [imageName, setImageName] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
@@ -74,11 +75,19 @@ const UpdateCamp = () => {
             );
 
             if (campRes.data.modifiedCount > 0) {
-                alert("Camp updated successfully!");
+                Swal.fire({
+                    title: "Camp Updated Successfully",
+                    icon: "success",
+                    draggable: true
+                });
+                navigate('/dashboard/manage-camps')
             }
         } catch (error) {
-            console.error("Error updating camp:", error);
-            alert("Failed to update camp. Please try again.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Failed to update camp. Please try again",
+            });
         }
     };
 
@@ -86,8 +95,8 @@ const UpdateCamp = () => {
         if (e.target.files.length > 0) {
             const newImage = e.target.files[0];
             setImageName(newImage.name);
-            const newImageUrl = URL.createObjectURL(newImage);  
-            setImageUrl(newImageUrl); 
+            const newImageUrl = URL.createObjectURL(newImage);
+            setImageUrl(newImageUrl);
         }
     };
 
