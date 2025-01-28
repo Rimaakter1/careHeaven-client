@@ -5,7 +5,7 @@ import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 
 
-const CheckoutForm = ({ camp }) => {
+const CheckoutForm = ({ participant }) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
     const [transactionId, setTransactionId] = useState('');
@@ -14,8 +14,8 @@ const CheckoutForm = ({ camp }) => {
     const { user } = useAuth();
 
     useEffect(() => {
-        if (camp.Fees > 0) {
-            axios.post('http://localhost:5000/create-payment-intent', { campFees: camp.Fees }, {
+        if (participant.fees > 0) {
+            axios.post('http://localhost:5000/create-payment-intent', { campFees: participant.fees }, {
                 withCredentials: true
             })
                 .then(res => {
@@ -26,7 +26,7 @@ const CheckoutForm = ({ camp }) => {
 
     }, [])
 
-    console.log(camp);
+    console.log(participant);
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -75,11 +75,10 @@ const CheckoutForm = ({ camp }) => {
 
                 const payment = {
                     email: user.email,
-                    price: camp.Fees,
                     transactionId: paymentIntent.id,
                     date: new Date(),
                     status: 'pending',
-                    campId: camp._id
+                    participantId: participant._id
                 }
 
                 const res = await axios.post('http://localhost:5000/payments', payment);

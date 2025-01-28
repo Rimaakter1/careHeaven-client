@@ -27,6 +27,7 @@ const PaymentHistory = () => {
             <table className="table-auto w-full border-collapse border border-gray-300">
                 <thead>
                     <tr className="bg-gray-100">
+                        <th className="border border-gray-300 px-4 py-2">Transaction Id</th>
                         <th className="border border-gray-300 px-4 py-2">Camp Name</th>
                         <th className="border border-gray-300 px-4 py-2">Fees</th>
                         <th className="border border-gray-300 px-4 py-2">Payment Status</th>
@@ -36,6 +37,7 @@ const PaymentHistory = () => {
                 <tbody>
                     {payments.map((payment) => (
                         <tr key={payment._id} className="text-center">
+                            <td className="border border-gray-300 px-4 py-2">{payment.transactionId}</td>
                             <td className="border border-gray-300 px-4 py-2">{payment.campName}</td>
                             <td className="border border-gray-300 px-4 py-2">${payment.campFees}</td>
                             <td className="border border-gray-300 px-4 py-2">
@@ -48,7 +50,7 @@ const PaymentHistory = () => {
                                 </span>
                             </td>
                             <td className="border border-gray-300 px-4 py-2">
-                                {payment.confirmationStatus}
+                                {payment.paymentConfirmationStatus}
                             </td>
                         </tr>
                     ))}

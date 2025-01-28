@@ -9,9 +9,9 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
 const Payment = () => {
     const { id } = useParams();
-
-    const { data: camp = {}, isLoading, error } = useQuery({
-        queryKey: ["camp", id],
+    console.log(id);
+    const { data: participant = {}, isLoading, error } = useQuery({
+        queryKey: ["participant", id],
         queryFn: async () => {
             const response = await axios.get(`http://localhost:5000/participant/${id}`, {
                 withCredentials: true,
@@ -19,17 +19,17 @@ const Payment = () => {
             return response.data;
         },
     });
-    console.log(camp);
+    console.log(participant);
 
-    if (isLoading) return <p>Loading camp details...</p>;
-    if (error) return <p>Error fetching camp details.</p>;
+    if (isLoading) return <p>Loading participant details...</p>;
+    if (error) return <p>Error fetching participant details.</p>;
 
     return (
         <div className="max-w-4xl mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-4">Payment for {camp.name}</h1>
-            <p>Amount: ${camp.Fees}</p>
+            <h1 className="text-2xl font-bold mb-4">Payment for {participant?.campName}</h1>
+            <p>Amount: ${participant?.fees}</p>
             <Elements stripe={stripePromise}>
-                <CheckoutForm camp={camp} />
+                <CheckoutForm participant={participant} />
             </Elements>
         </div>
     );

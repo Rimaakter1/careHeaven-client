@@ -11,11 +11,12 @@ const RegisteredCamps = () => {
     const { data: camps = [], isLoading, refetch } = useQuery({
         queryKey: ["RegisteredCamps"],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/participants/${user.email}`);
+            const response = await axios.get(`http://localhost:5000/participants/${user.email}`, {
+                withCredentials: true,
+            });
             return response.data;
         },
     });
-
     console.log(camps);
 
 
@@ -59,7 +60,7 @@ const RegisteredCamps = () => {
                                 {camp.paymentStatus === "paid" ? (
                                     <span className="text-green-600 font-semibold">Paid</span>
                                 ) : (
-                                    <Link to={`/dashboard/payment/${camp.campId}`}
+                                    <Link to={`/dashboard/payment/${camp._id}`}
                                         className="btn btn-sm btn-primary"
                                         disabled={camp.paymentStatus === "Paid"}
                                     >
