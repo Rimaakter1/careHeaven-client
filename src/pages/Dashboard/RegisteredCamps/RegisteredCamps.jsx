@@ -3,35 +3,54 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import Modal from "../../../components/Modal/Modal";
 
 const RegisteredCamps = () => {
     const [feedback, setFeedback] = useState("");
+    const [rating, setRating] = useState(0); 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCampId, setSelectedCampId] = useState(null);
     const { user } = useAuth();
-    const queryClient = useQueryClient();
     const { data: camps = [], isLoading, refetch } = useQuery({
         queryKey: ["RegisteredCamps"],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/participants/${user.email}`, {
-                withCredentials: true,
-            });
+            const response = await axios.get(
+                `http://localhost:5000/participants/${user.email}`,
+                {
+                    withCredentials: true,
+                }
+            );
             return response.data;
         },
     });
-    console.log(camps);
-
-
 
     const handleCancel = async (campId) => {
-        console.log(campId);
         if (confirm("Are you sure you want to cancel this registration?")) {
             await axios.delete(`http://localhost:5000/cancel-registration/${campId}`, {
-                withCredentials: true
+                withCredentials: true,
             });
-            refetch()
-            alert('delete')
+            refetch();
+            alert("Registration canceled");
         }
     };
 
+    const handleFeedbackSubmit = async () => {
+        if (feedback.trim() && rating > 0) {
+            await axios.post(
+                `http://localhost:5000/submit-feedback`,
+                { campId: selectedCampId, feedback, rating, participantName: user.displayName, participantEmail: user.email, photo: user.photoURL },
+                {
+                    withCredentials: true,
+                }
+            );
+            alert("Feedback submitted!");
+            setIsModalOpen(false);
+            setFeedback("");
+            setRating(0);
+        } else {
+            alert("Please provide valid feedback and a rating.");
+        }
+    };
 
     if (isLoading) return <div>Loading...</div>;
 
@@ -60,55 +79,55 @@ const RegisteredCamps = () => {
                                 {camp.paymentStatus === "paid" ? (
                                     <span className="text-green-600 font-semibold">Paid</span>
                                 ) : (
-                                    <Link to={`/dashboard/payment/${camp._id}`}
+                                    <Link
+                                        to={`/dashboard/payment/${camp._id}`}
                                         className="btn btn-sm btn-primary"
                                         disabled={camp.paymentStatus === "Paid"}
                                     >
-                                        {
-                                            camp.paymentStatus === "Paid" ? camp.paymentStatus : 'Pay'
-                                        }
+                                        {camp.paymentStatus === "Paid" ? camp.paymentStatus : "Pay"}
                                     </Link>
                                 )}
                             </td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                {camp.paymentConfirmationStatus}
-                            </td>
+                            <td className="border border-gray-300 px-4 py-2">{camp.paymentConfirmationStatus}</td>
                             <td className="border border-gray-300 px-4 py-2 space-x-2">
                                 <button
-                                    className={`btn btn-sm ${camp.paymentStatus === "paid" ? "btn-disabled" : "btn-warning"}`}
+                                    className={`btn btn-sm ${camp.paymentStatus === "paid" ? "btn-disabled" : "btn-warning"
+                                        }`}
                                     onClick={() => handleCancel(camp.campId)}
                                     disabled={camp.paymentStatus === "Paid"}
                                 >
                                     Cancel
                                 </button>
-
                             </td>
                             <td className="border border-gray-300 px-4 py-2 space-x-2">
-                                {camp.paymentStatus === "paid" && camp.paymentConfirmationStatus === "Confirmed" ?
+                                {camp.paymentStatus === "Paid" && camp.paymentConfirmationStatus === "Confirmed" ? (
                                     <button
                                         className="btn btn-sm btn-secondary"
-                                        onClick={() => handleFeedbackSubmit(camp.id)}
+                                        onClick={() => {
+                                            setSelectedCampId(camp.campId);
+                                            setIsModalOpen(true);
+                                        }}
                                     >
                                         Feedback
-                                    </button> : <button>
-                                        N/A
                                     </button>
-                                }
+                                ) : (
+                                    <button>N/A</button>
+                                )}
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {feedback && (
-                <div className="mt-4">
-                    <textarea
-                        placeholder="Leave your feedback"
-                        className="textarea textarea-bordered w-full"
-                        value={feedback}
-                        onChange={(e) => setFeedback(e.target.value)}
-                    ></textarea>
-                </div>
-            )}
+
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)} 
+                onSubmit={handleFeedbackSubmit}
+                feedback={feedback}
+                setFeedback={setFeedback}
+                rating={rating}
+                setRating={setRating}
+            />
         </section>
     );
 };

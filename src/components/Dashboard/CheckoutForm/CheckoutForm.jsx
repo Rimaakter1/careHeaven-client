@@ -70,7 +70,6 @@ const CheckoutForm = ({ participant }) => {
         else {
             console.log('payment intent', paymentIntent)
             if (paymentIntent.status === 'succeeded') {
-                console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
 
                 const payment = {
