@@ -5,6 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import Modal from "../../../components/Modal/Modal";
 import SearchBar from "../../../components/SearchBar/SearchBar";
+import Swal from "sweetalert2";
 
 const RegisteredCamps = () => {
     const [feedback, setFeedback] = useState("");
@@ -30,13 +31,27 @@ const RegisteredCamps = () => {
     });
 
     const handleCancel = async (campId) => {
-        if (confirm("Are you sure you want to cancel this registration?")) {
-            await axios.delete(`http://localhost:5000/cancel-registration/${campId}`, {
-                withCredentials: true,
-            });
-            refetch();
-            alert("Registration canceled");
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to Cancel this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await axios.delete(`http://localhost:5000/cancel-registration/${campId}`, {
+                    withCredentials: true,
+                });
+                Swal.fire({
+                    title: "Registration canceled!",
+                    icon: "success"
+                });
+                refetch();
+            }
+        });
+
     };
 
     const handleFeedbackSubmit = async () => {
@@ -55,12 +70,20 @@ const RegisteredCamps = () => {
                     withCredentials: true,
                 }
             );
-            alert("Feedback submitted!");
+            Swal.fire({
+                title: "Feedback submitted!",
+                icon: "success",
+                draggable: true
+            });
             setIsModalOpen(false);
             setFeedback("");
             setRating(0);
         } else {
-            alert("Please provide valid feedback and a rating.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please provide valid feedback and a rating.",
+            });
         }
     };
 

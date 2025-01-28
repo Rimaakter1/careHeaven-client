@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import SearchBar from "../../../../components/SearchBar/SearchBar";
+import Swal from "sweetalert2";
 
 const ManageRegisteredCamps = () => {
     const { data: registeredParticipants = [], isLoading, refetch } = useQuery({
@@ -32,15 +33,38 @@ const ManageRegisteredCamps = () => {
     const currentParticipants = filteredParticipants.slice(indexOfFirstParticipant, indexOfLastParticipant);
 
     const handleCancel = async (participantId) => {
-        if (window.confirm("Are you sure you want to cancel this registration?")) {
-            try {
-                await axios.delete(`http://localhost:5000/cancel-registered-participant/${participantId}`);
-                refetch();
-                alert('Registration successfully cancelled');
-            } catch (err) {
-                alert('Error cancelling registration');
-            }
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        })
+            .then( async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        await axios.delete(`http://localhost:5000/cancel-registered-participant/${participantId}`,{
+                            withCredentials:true
+                        });
+                        refetch();
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+
+                    } catch (err) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Error cancelling registration",
+                        });
+                    }
+
+                }
+            });
     };
 
     const handleConfirmPayment = async (participantId) => {
@@ -50,9 +74,17 @@ const ManageRegisteredCamps = () => {
                 withCredentials: true,
             });
             refetch();
-            alert('Payment confirmed successfully');
+            Swal.fire({
+                title: "Successfully Confirmed",
+                icon: "success",
+                draggable: true
+            });
         } catch (err) {
-            alert('Error confirming payment');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Error confirming",
+            });
         }
     };
 

@@ -1,25 +1,40 @@
 import axios from 'axios';
 import React from 'react';
+import { TiArrowSyncOutline } from 'react-icons/ti';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const CampsRow = ({ camp, refetch, index }) => {
     const handleCampDelete = async () => {
-        try {
-            await axios.delete(`http://localhost:5000/delete-camp/${camp._id}`, { withCredentials: true })
-            Swal.fire({
-                title: "Camp successfully removed.",
-                icon: "success",
-                draggable: true
-            });
-            refetch()
-        } catch (err) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Failed to remove",
-            });
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to Delete this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`http://localhost:5000/delete-camp/${camp._id}`, { withCredentials: true })
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Camp been deleted.",
+                        icon: "success"
+                    });
+                    refetch()
+                } catch (err) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Failed to remove",
+                    });
+                }
+
+            }
+        });
+
     }
 
     return (

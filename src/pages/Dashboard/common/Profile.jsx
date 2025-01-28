@@ -47,7 +47,6 @@ const Profile = () => {
                 title: "Oops...",
                 text: "Error updating profile. Please try again.",
             });
-            alert("Error updating profile. Please try again.");
         }
     };
 

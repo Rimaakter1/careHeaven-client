@@ -9,7 +9,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
 const Payment = () => {
     const { id } = useParams();
-    console.log(id);
     const { data: participant = {}, isLoading, error } = useQuery({
         queryKey: ["participant", id],
         queryFn: async () => {
@@ -19,10 +18,7 @@ const Payment = () => {
             return response.data;
         },
     });
-    console.log(participant);
-
     if (isLoading) return <p>Loading participant details...</p>;
-    if (error) return <p>Error fetching participant details.</p>;
 
     return (
         <div className="max-w-4xl mx-auto p-6">

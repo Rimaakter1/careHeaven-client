@@ -4,7 +4,7 @@ import DashboardMenu from "../shared/DashboardMenu";
 const ParticipantMenu = () => {
     const menuItems = [
         { label: "Analytics", path: "/dashboard/analytics", icon: FaChartBar },
-        { label: "Participant Profile", path: "/dashboard/participant-profile", icon: FaUserCircle },
+        { label: "Participant Profile", path: "/dashboard", icon: FaUserCircle },
         { label: "Registered Camps", path: "/dashboard/registered-camps", icon: FaClipboardList },
         { label: "Payment History", path: "/dashboard/payment-history", icon: FaCreditCard },
     ];

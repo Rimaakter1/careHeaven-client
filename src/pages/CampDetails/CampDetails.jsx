@@ -49,8 +49,6 @@ const CampDetails = () => {
             feedback: 'N/A',
 
         };
-        console.log(participantData);
-
         try {
             const response = await axios.post("http://localhost:5000/participants", participantData, {
                 withCredentials: true,

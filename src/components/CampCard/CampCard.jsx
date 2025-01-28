@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CampCard = ({ camp }) => {
-    console.log(camp);
     return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
             <img

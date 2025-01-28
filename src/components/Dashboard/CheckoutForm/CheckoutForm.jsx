@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const CheckoutForm = ({ participant }) => {
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('')
-    const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (participant.fees > 0) {
@@ -19,23 +20,18 @@ const CheckoutForm = ({ participant }) => {
                 withCredentials: true
             })
                 .then(res => {
-                    console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
 
     }, [])
 
-    console.log(participant);
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         if (!stripe || !elements) {
             return
         }
-
         const card = elements.getElement(CardElement)
-
         if (card === null) {
             return
         }
@@ -46,11 +42,9 @@ const CheckoutForm = ({ participant }) => {
         })
 
         if (error) {
-            console.log('payment error', error);
             setError(error.message);
         }
         else {
-            console.log('payment method', paymentMethod)
             setError('');
         }
 
@@ -65,13 +59,15 @@ const CheckoutForm = ({ participant }) => {
         })
 
         if (confirmError) {
-            console.log('confirm error')
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "confirm error",
+            });
         }
-        else {
-            console.log('payment intent', paymentIntent)
-            if (paymentIntent.status === 'succeeded') {
-                setTransactionId(paymentIntent.id);
 
+        else {
+            if (paymentIntent.status === 'succeeded') {
                 const payment = {
                     email: user.email,
                     transactionId: paymentIntent.id,
@@ -79,11 +75,16 @@ const CheckoutForm = ({ participant }) => {
                     status: 'pending',
                     participantId: participant._id
                 }
-
                 const res = await axios.post('http://localhost:5000/payments', payment);
-                console.log('payment saved', res.data);
                 if (res.data?.paymentResult?.insertedId) {
-                    alert('success')
+                    Swal.fire({
+                        title: 'Payment Successfully Added',
+                        html: `<p>Transaction Id: ${paymentIntent.id}</p>`,
+                        icon: "success",
+                        draggable: true
+                    });
+
+                    navigate('/dashboard/payment-history')
                 }
 
             }
@@ -113,7 +114,6 @@ const CheckoutForm = ({ participant }) => {
                 Pay
             </button>
             <p className="text-red-600">{error}</p>
-            {transactionId && <p className="text-green-600"> Your transaction id: {transactionId}</p>}
         </form>
     );
 };

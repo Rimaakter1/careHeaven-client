@@ -28,7 +28,6 @@ const Register = () => {
             });
             navigate('/')
         } catch (error) {
-            console.error(error.message);
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
