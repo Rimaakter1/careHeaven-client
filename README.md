@@ -88,4 +88,16 @@ To set up and run this project locally, follow these steps:
 git clone <repository-url>
 cd careHeaven-client
 ```
-
+### **2️⃣ Install Dependencies**
+```
+npm install
+```
+### **3️⃣ Run the Development Server**
+```
+npm start
+```
+## 🔧 Development
+To build the project for production:
+```
+npm run build
+```
