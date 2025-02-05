@@ -58,7 +58,7 @@ The **Medical Camp Management System (MCMS)** is a **MERN stack** web applicatio
 
 ## 📦 Dependencies  
 
-json
+```json
 "dependencies": {
   "@stripe/react-stripe-js": "^3.1.1",
   "@stripe/stripe-js": "^5.5.0",
@@ -72,11 +72,11 @@ json
   "react-icons": "^5.4.0",
   "react-rating": "^2.0.5",
   "react-router-dom": "^7.1.3",
-  "react-stars": "^2.2.5",
+  "react-stars": "^2.2.5",  
   "recharts": "^2.15.1",
   "sweetalert2": "^11.15.10",
   "swiper": "^11.2.1"
-}
+}```    
 
 ## 🛠️ Installation Guide  
 
