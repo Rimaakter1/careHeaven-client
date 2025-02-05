@@ -58,7 +58,7 @@ The **Medical Camp Management System (MCMS)** is a **MERN stack** web applicatio
 
 ## 📦 Dependencies  
 
-```json
+
 "dependencies": {
   "@stripe/react-stripe-js": "^3.1.1",
   "@stripe/stripe-js": "^5.5.0",
@@ -83,7 +83,6 @@ The **Medical Camp Management System (MCMS)** is a **MERN stack** web applicatio
 To set up and run this project locally, follow these steps:  
 
 ### **1️⃣ Clone the Repository**  
-```sh
 git clone <repository-url>
 cd careHeaven-client
 
