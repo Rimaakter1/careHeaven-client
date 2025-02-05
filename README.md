@@ -78,14 +78,12 @@ The **Medical Camp Management System (MCMS)** is a **MERN stack** web applicatio
   "swiper": "^11.2.1"
 }
 
-----
+## 🛠️ Installation Guide  
 
-## 🛠️ Installation Guide
-To set up and run this project locally, follow these steps:
+To set up and run this project locally, follow these steps:  
 
-1️⃣ Clone the Repository
-sh
-Copy
-Edit
+### **1️⃣ Clone the Repository**  
+```sh
 git clone <repository-url>
 cd careHeaven-client
+
