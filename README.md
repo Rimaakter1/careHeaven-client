@@ -1,6 +1,6 @@
 # 🌿 careHeaven - Medical Camp Management System (Client Side)  
 
-![Project Screenshot](https://via.placeholder.com/1200x600?text=Project+Screenshot)  
+![Project Screenshot](https://i.ibb.co.com/tTFdmqPw/Screenshot-2025-02-05-193037.png)  
 
 ## 📖 Table of Contents  
 1. [📜 Project Overview](#-project-overview)  
@@ -9,9 +9,7 @@
 4. [🛠️ Technologies Used](#-technologies-used)  
 5. [🔥 Core Features](#-core-features)  
 6. [📦 Dependencies](#-dependencies)  
-7. [🛠️ Installation Guide](#-installation-guide)  
-8. [🚀 Usage Instructions](#-usage-instructions)  
-9. [📚 Additional Resources](#-additional-resources)  
+7. [🛠️ Installation Guide](#-installation-guide)
 
 ---
 
