@@ -12,7 +12,6 @@
 7. [🛠️ Installation Guide](#-installation-guide)  
 8. [🚀 Usage Instructions](#-usage-instructions)  
 9. [📚 Additional Resources](#-additional-resources)  
-10. [📅 Last Updated](#-last-updated)  
 
 ---
 
@@ -29,8 +28,6 @@ The **Medical Camp Management System (MCMS)** is a **MERN stack** web applicatio
 ## 🔑 Credentials (For Testing)  
 📧 **Organizer Email**: `rimaakter6239@gmail.com`  
 🔑 **Organizer Password**: `rima12345R`  
-
-⚠️ **Important**: Avoid exposing sensitive credentials in public repositories. Use `.env` files or secure storage for production.  
 
 ---
 
@@ -80,3 +77,15 @@ The **Medical Camp Management System (MCMS)** is a **MERN stack** web applicatio
   "sweetalert2": "^11.15.10",
   "swiper": "^11.2.1"
 }
+
+----
+
+## 🛠️ Installation Guide
+To set up and run this project locally, follow these steps:
+
+1️⃣ Clone the Repository
+sh
+Copy
+Edit
+git clone <repository-url>
+cd careHeaven-client
