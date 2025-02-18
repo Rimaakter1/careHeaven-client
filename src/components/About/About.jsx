@@ -60,7 +60,7 @@ const About = () => {
                 </div>
                 <div className=" relative mt-4">
                     <img src={aboutImg} alt="" />
-                    <img className="absolute -mt-20 ml-64 z-10 hidden lg:block" src={aboutImg2} alt="" />
+                    <img className="absolute -mt-20 ml-48  z-10 hidden lg:block" src={aboutImg2} alt="" />
                     <img className="mt-20 hidden lg:block" src={aboutImg3} alt="" />
                 </div>
             </div>
