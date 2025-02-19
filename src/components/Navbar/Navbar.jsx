@@ -15,8 +15,12 @@ const Navbar = () => {
             <Link className="mr-8" to="/">
                 <a>Home</a>
             </Link>
-            <Link to="/available-camps">
+            <Link className='mr-8' to="/available-camps">
                 <a>Available Camps</a>
+            </Link>
+
+            <Link to="/all-services">
+                <a>Services</a>
             </Link>
         </>
     );
@@ -86,7 +90,7 @@ const Navbar = () => {
                         </div>
                     )}
                 </div>
-           </div>
+            </div>
         </div>
     );
 };

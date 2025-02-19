@@ -18,6 +18,7 @@ import Payment from '../pages/Dashboard/Payment/Payment'
 import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory'
 import ManageRegisteredCamps from '../pages/Dashboard/Admin/ManageRegisteredCamps/ManageRegisteredCamps'
 import Analytics from '../pages/Dashboard/Analytics/Analytics'
+import AllServices from '../pages/AllServices/AllServices'
 
 
 export const router = createBrowserRouter([
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
                 path: 'register',
                 element: <Register></Register>
             },
+            {
+                path: 'all-services',
+                element: <AllServices></AllServices>
+            }
         ],
     },
     {
