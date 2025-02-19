@@ -6,6 +6,7 @@ import FeedbackAndRatings from '../../components/FeedbacksAndRatings/FeedbackAnd
 import Work from '../../components/Work/Work';
 import Services from '../../components/Services/Services';
 import OurNumbers from '../../components/OurNumbers/OurNumbers';
+import OurApproach from '../../components/OurApproach/OurApproach';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <About></About>
             <PopularCamps></PopularCamps>
             <Work></Work>
+            <OurApproach></OurApproach>
             <Services></Services>
             <OurNumbers></OurNumbers>
             <FeedbackAndRatings></FeedbackAndRatings>
