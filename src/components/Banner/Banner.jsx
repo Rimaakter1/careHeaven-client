@@ -30,7 +30,7 @@ const Banner = () => {
                         <h2 className="text-2xl w-6/12 font-Parkinsans md:text-4xl lg:text-5xl font-bold text-white mb-4">
                             Empowering Communities
                         </h2>
-                        <p className="text-sm md:text-lg font-DM_Serif_Text text-white max-w-3xl mb-6">
+                        <p className="text-sm md:text-lg font-DM_Serif_Text text-white w-3/4 lg:max-w-3xl mb-6">
                             Discover how our medical camps have transformed lives by providing
                             free healthcare services to those in need.
                         </p>
@@ -50,7 +50,7 @@ const Banner = () => {
                         <h2 className="text-2xl w-6/12 font-Parkinsans md:text-4xl lg:text-5xl font-bold text-white mb-4">
                             Spreading Smiles
                         </h2>
-                        <p className="text-sm font-DM_Serif_Text md:text-lg text-white max-w-3xl mb-6">
+                        <p className="text-sm font-DM_Serif_Text md:text-lg text-white w-3/4 lg:max-w-3xl mb-6">
                             Our initiatives focus on bringing healthcare to remote areas,
                             ensuring everyone has access to basic medical support.
                         </p>
@@ -70,7 +70,7 @@ const Banner = () => {
                         <h2 className="text-2xl w-6/12 font-Parkinsans md:text-4xl lg:text-5xl font-bold text-white mb-4">
                             Building a Healthier Future
                         </h2>
-                        <p className="text-sm font-DM_Serif_Text md:text-lg text-white max-w-3xl mb-6">
+                        <p className="text-sm font-DM_Serif_Text md:text-lg text-white w-3/4 lg:max-w-3xl mb-6">
                             Join us in our journey to make healthcare accessible for
                             underprivileged communities worldwide.
                         </p>
