@@ -19,7 +19,7 @@ const Banner = () => {
             mousewheel={true}
             keyboard={true}
             modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-            className="mySwiper"
+            className="mySwiper mt-16"
         >
             <SwiperSlide className="relative">
                 <div

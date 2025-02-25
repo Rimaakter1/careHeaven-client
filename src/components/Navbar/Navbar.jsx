@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleLogout = () => {
         logOut();
@@ -12,22 +25,16 @@ const Navbar = () => {
 
     const links = (
         <>
-            <Link className="mr-8" to="/">
-                <a>Home</a>
-            </Link>
-            <Link className='mr-8' to="/available-camps">
-                <a>Available Camps</a>
-            </Link>
-
-            <Link to="/all-services">
-                <a>Services</a>
-            </Link>
+            <Link className="mr-8" to="/">Home</Link>
+            <Link className='mr-8' to="/available-camps">Available Camps</Link>
+            <Link to="/all-services">Services</Link>
         </>
     );
 
     return (
-        <div className="bg-[#10273D]">
-            <div className='navbar w-11/12 mx-auto md:w-10/12 z-50 relative'>
+        <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-[#10273D]/80 backdrop-blur-md shadow-md' : 'bg-[#10273D]'
+            }`}>
+            <div className='navbar w-11/12 mx-auto md:w-10/12'>
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -46,7 +53,7 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow text-lg"
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow text-lg"
                         >
                             {links}
                         </ul>
@@ -58,7 +65,7 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     {user ? (
-                        <div className="dropdown dropdown-end z-50">
+                        <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="cursor-pointer">
                                 <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
                             </label>
