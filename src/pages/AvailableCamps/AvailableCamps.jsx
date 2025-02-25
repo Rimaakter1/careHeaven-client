@@ -41,7 +41,7 @@ const AvailableCamps = () => {
     }
 
     return (
-        <section className="bg-gray-50 py-12 px-4 md:px-16 lg:px-32">
+        <section className="bg-gray-50 py-12 px-4 md:px-16 lg:px-32 mt-20">
             <header className="text-center mb-8">
                 <h2 className="text-4xl font-bold text-blue-700">Explore Our Available Medical Camps</h2>
                 <p className="text-gray-600 w-9/12 mx-auto mt-4">

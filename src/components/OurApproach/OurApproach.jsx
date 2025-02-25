@@ -34,7 +34,7 @@ const OurApproach = () => {
     };
 
     return (
-        <div className='mt-20 py-16 bg-gray-100'>
+        <div className='py-20 bg-gray-100 dark:bg-gray-800'>
             <div className='w-11/12 mx-auto max-w-6xl'>
                 <div className='flex flex-col lg:flex-row gap-8 items-center'>
                     <div className='lg:w-1/2 w-full'>
@@ -42,11 +42,11 @@ const OurApproach = () => {
                     </div>
 
                     <div className='lg:w-1/2 w-full text-center lg:text-left'>
-                        <p className='text-blue-400 font-bold mb-4'>Our Approach</p>
-                        <h1 className='text-black font-bold text-3xl md:text-4xl mb-4 leading-snug'>
+                        <p className='text-blue-400 dark:text-blue-300 font-bold mb-4'>Our Approach</p>
+                        <h1 className='text-black dark:text-white font-bold text-3xl md:text-4xl mb-4 leading-snug'>
                             Providing Personalized Healthcare
                         </h1>
-                        <p className='text-gray-700 text-sm md:text-base'>
+                        <p className='text-gray-700 dark:text-gray-300 text-sm md:text-base'>
                             We focus on personalized care to meet your unique needs, combining innovation and compassion for a truly patient-centered approach.
                         </p>
 
@@ -56,7 +56,7 @@ const OurApproach = () => {
                                     key={tab}
                                     className={`rounded-3xl px-5 py-2 font-bold transition-all text-sm md:text-base ${activeTab === tab
                                         ? "bg-blue-400 text-white"
-                                        : "bg-white hover:bg-blue-400 hover:text-white"
+                                        : "bg-white hover:bg-blue-400 hover:text-white dark:bg-gray-700 dark:hover:bg-blue-500 dark:text-white"
                                         }`}
                                     onClick={() => setActiveTab(tab)}
                                 >
@@ -72,10 +72,10 @@ const OurApproach = () => {
                             <div className='md:w-1/2 w-full space-y-4'>
                                 {content[activeTab].points.map((point, index) => (
                                     <div key={index} className='flex items-center  justify-start'>
-                                        <div className="w-6 h-6 flex items-center justify-center bg-blue-800 rounded-full text-white">
+                                        <div className="w-6 h-6 flex items-center justify-center bg-blue-800 dark:bg-blue-600 rounded-full text-white">
                                             <TiTick size={14} />
                                         </div>
-                                        <p className='ml-2 text-gray-800 text-sm md:text-base'>{point}</p>
+                                        <p className='ml-2 text-gray-800 dark:text-gray-200 text-sm md:text-base'>{point}</p>
                                     </div>
                                 ))}
                             </div>

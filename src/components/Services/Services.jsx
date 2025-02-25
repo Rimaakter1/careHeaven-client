@@ -22,26 +22,28 @@ const Services = () => {
     }
 
     return (
-        <div className="lg:w-10/12 mx-auto w-11/12 mt-52 mb-24">
-            <div className="text-center">
-                <p className="text-blue-600 font-bold mb-3">Our Services</p>
-                <h1 className="text-3xl font-bold text-black mb-8">
-                    Comprehensive services for <br /> your health
-                </h1>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {services.map((service) => (
-                    <ServiceCard service={service}></ServiceCard>
-                ))}
-            </div>
+        <div className="pt-24 pb-24 bg-gray-100 dark:bg-gray-900">
+            <div className='lg:w-10/12 mx-auto w-11/12 '>
+                <div className="text-center">
+                    <p className="text-blue-600 dark:text-blue-300 font-bold mb-3">Our Services</p>
+                    <h1 className="text-3xl font-bold text-black dark:text-white mb-8">
+                        Comprehensive services for <br /> your health
+                    </h1>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {services.map((service) => (
+                        <ServiceCard key={service._id} service={service} />
+                    ))}
+                </div>
 
-            <div className="text-center my-8 ">
-                <Link
-                    to="/all-services"
-                    className="bg-blue-600 text-white px-6 py-3 text-lg rounded-lg font-bold"
-                >
-                    View All Services
-                </Link>
+                <div className="text-center my-8">
+                    <Link
+                        to="/all-services"
+                        className="bg-blue-600 text-white px-6 py-3 text-lg rounded-lg font-bold hover:bg-blue-700 dark:hover:bg-blue-500"
+                    >
+                        View All Services
+                    </Link>
+                </div>
             </div>
         </div>
     );

@@ -25,10 +25,10 @@ const PopularCamps = () => {
     }
 
     return (
-        <section id="popular-camps" className="bg-gray-50 py-12 px-4 md:px-16 lg:px-32">
+        <section id="popular-camps" className="bg-gray-50 dark:bg-gray-800 py-12 px-4 md:px-16 lg:px-32">
             <header className="text-center mb-8">
-                <h2 className="text-4xl font-bold text-blue-700">Popular Medical Camps</h2>
-                <p className="mt-2 text-gray-600">Explore the most attended medical camps hosted by renowned professionals.</p>
+                <h2 className="text-4xl font-bold text-blue-700 dark:text-blue-400">Popular Medical Camps</h2>
+                <p className="mt-2 text-gray-600 dark:text-gray-300">Explore the most attended medical camps hosted by renowned professionals.</p>
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -40,7 +40,7 @@ const PopularCamps = () => {
             <div className="mt-12 text-center">
                 <button
                     onClick={handleViewAll}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all dark:bg-blue-500 dark:hover:bg-blue-400"
                 >
                     See All Camps
                 </button>
