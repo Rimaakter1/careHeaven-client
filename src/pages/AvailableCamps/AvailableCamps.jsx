@@ -37,14 +37,16 @@ const AvailableCamps = () => {
         });
 
     if (isLoading) {
-        return <Loading></Loading>;
+        return <Loading />;
     }
 
     return (
-        <section className="bg-gray-50 py-12 px-4 md:px-16 lg:px-32 mt-20">
+        <section className="bg-gray-50 dark:bg-gray-950 py-12 px-4 md:px-16 lg:px-32 mt-20">
             <header className="text-center mb-8">
-                <h2 className="text-4xl font-bold text-blue-700">Explore Our Available Medical Camps</h2>
-                <p className="text-gray-600 w-9/12 mx-auto mt-4">
+                <h2 className="text-4xl font-bold text-blue-700 dark:text-blue-400">
+                    Explore Our Available Medical Camps
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300 w-9/12 mx-auto mt-4">
                     Discover medical camps tailored for diverse health needs, offering expert care, accessible
                     locations, and affordable fees. Browse now to secure your spot for quality healthcare!
                 </p>
@@ -54,13 +56,13 @@ const AvailableCamps = () => {
                 <input
                     type="text"
                     placeholder="Search camps by name..."
-                    className="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3"
+                    className="border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 w-full md:w-1/3 dark:bg-gray-700 dark:text-gray-300"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
 
                 <select
-                    className="border border-gray-300 rounded-lg px-4 py-2"
+                    className="border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 dark:bg-gray-700 dark:text-gray-300"
                     value={sortCriteria}
                     onChange={(e) => setSortCriteria(e.target.value)}
                 >
@@ -71,7 +73,7 @@ const AvailableCamps = () => {
                 </select>
 
                 <button
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg dark:bg-blue-500 dark:hover:bg-blue-600"
                     onClick={() => setIsTwoColumn((prev) => !prev)}
                 >
                     {isTwoColumn ? "Switch to Three-Column" : "Switch to Two-Column"}
