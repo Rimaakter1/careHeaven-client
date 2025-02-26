@@ -39,7 +39,7 @@ const Profile = () => {
                 Swal.fire({
                     title: "Profile updated successfully!",
                     icon: "success",
-                    draggable: true
+                    draggable: true,
                 });
             }
         } catch (err) {
@@ -51,29 +51,31 @@ const Profile = () => {
         }
     };
 
-    if (loading || isLoading) return <Loading></Loading>;
+    if (loading || isLoading) return <Loading />;
 
     return (
-        <div>
-            <div className="w-full lg:w-6/12 mx-auto bg-white rounded-lg shadow-xl">
+        <div className="dark:bg-gray-800 min-h-screen flex flex-col items-center p-6 transition-colors duration-300">
+            <div className="w-full lg:w-6/12 bg-white dark:bg-gray-700 rounded-lg shadow-xl transition-colors duration-300">
                 <div className="flex mt-14 justify-center">
                     <img
                         src={user?.photoURL}
                         alt="profile"
-                        className="w-20 h-20 rounded-full border-4 border-white shadow-md object-cover"
+                        className="w-20 h-20 rounded-full border-4 border-white dark:border-gray-700 shadow-md object-cover"
                     />
                 </div>
                 <div className="mt-5 px-6 pb-6 text-center">
                     <span className="bg-green-500 text-white text-sm font-medium rounded-full px-4 py-1">
                         {role}
                     </span>
-                    <h1 className="mt-2 text-2xl font-semibold text-gray-800">{user.displayName}</h1>
-                    <p className="text-gray-600">{user.email}</p>
-                    <p className="text-sm text-gray-500 mt-2">User ID: {user.uid}</p>
+                    <h1 className="mt-2 text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                        {user.displayName}
+                    </h1>
+                    <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">User ID: {user.uid}</p>
 
                     <div className="mt-6">
                         <button
-                            className="w-full bg-blue-500 text-white py-2 rounded-lg font-medium hover:bg-blue-600"
+                            className="w-full bg-blue-500 text-white py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-300"
                             onClick={() => setIsEditing(true)}
                         >
                             Update Profile
@@ -84,46 +86,52 @@ const Profile = () => {
 
             {isEditing && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-xl">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Edit Profile</h2>
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-xl transition-colors duration-300">
+                        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Edit Profile</h2>
                         <form onSubmit={handleFormSubmit}>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Name</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    Name
+                                </label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    className="w-full px-4 py-2 border rounded-lg"
+                                    className="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:text-gray-200"
                                     required
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Email</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    Email
+                                </label>
                                 <input
                                     type="email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleInputChange}
-                                    className="w-full px-4 py-2 border rounded-lg"
+                                    className="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:text-gray-200"
                                     required
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Profile Picture URL</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    Profile Picture URL
+                                </label>
                                 <input
                                     type="url"
                                     name="image"
                                     value={formData.image}
                                     onChange={handleInputChange}
-                                    className="w-full px-4 py-2 border rounded-lg"
+                                    className="w-full px-4 py-2 border rounded-lg dark:bg-gray-700 dark:text-gray-200"
                                 />
                             </div>
                             <div className="flex justify-end space-x-3">
                                 <button
                                     type="button"
                                     onClick={() => setIsEditing(false)}
-                                    className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                                    className="px-4 py-2 bg-gray-200 dark:bg-gray-600 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
                                 >
                                     Cancel
                                 </button>

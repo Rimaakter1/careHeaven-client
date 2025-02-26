@@ -96,14 +96,14 @@ const ManageRegisteredCamps = () => {
     };
 
     return (
-        <section className="py-8 px-4">
-            <h1 className="text-3xl font-bold mb-6">All Registered Participants</h1>
+        <div className="py-8 px-4 dark:bg-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold mb-6 text-center">All Registered Participants</h1>
 
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-            <table className="table-auto w-full border-collapse border border-gray-300">
+            <table className="table-auto w-full border-collapse border border-gray-300 dark:border-gray-600">
                 <thead>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-gray-100 dark:bg-gray-700">
                         <th className="border border-gray-300 px-4 py-2">Participant Name</th>
                         <th className="border border-gray-300 px-4 py-2">Camp Name</th>
                         <th className="border border-gray-300 px-4 py-2">Camp Fees</th>
@@ -114,7 +114,7 @@ const ManageRegisteredCamps = () => {
                 </thead>
                 <tbody>
                     {currentParticipants.map(participant => (
-                        <tr key={participant.participantId} className="text-center">
+                        <tr key={participant.participantId} className="text-center hover:bg-gray-100 dark:hover:bg-gray-600">
                             <td className="border border-gray-300 px-4 py-2">{participant.participantName}</td>
                             <td className="border border-gray-300 px-4 py-2">{participant.campName}</td>
                             <td className="border border-gray-300 px-4 py-2">{participant.campFees}</td>
@@ -132,7 +132,7 @@ const ManageRegisteredCamps = () => {
                                     <button
                                         onClick={() => handleConfirmPayment(participant.participantId)}
                                         disabled={participant.paymentStatus !== "Paid"}
-                                        className="btn btn-sm btn-primary"
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 shadow transition duration-200"
                                     >
                                         Confirm Payment
                                     </button>
@@ -140,13 +140,13 @@ const ManageRegisteredCamps = () => {
                             </td>
                             <td className="border border-gray-300 px-4 py-2">
                                 {participant.paymentStatus === "Paid" && participant.paymentConfirmationStatus === "Confirmed" ? (
-                                    <button disabled className="btn btn-sm btn-disabled">
+                                    <button disabled className="bg-gray-500 text-white py-1 px-4 rounded-lg cursor-not-allowed">
                                         Cancel
                                     </button>
                                 ) : (
                                     <button
                                         onClick={() => handleCancel(participant.participantId)}
-                                        className="btn btn-sm btn-warning"
+                                        className="bg-red-500 text-white py-1 px-4 rounded-lg hover:bg-red-600 shadow transition duration-200"
                                     >
                                         Cancel
                                     </button>
@@ -167,7 +167,7 @@ const ManageRegisteredCamps = () => {
             <div className="flex justify-center mt-4">
                 <button
                     onClick={() => handlePageChange(currentPage - 1)}
-                    className="btn btn-sm mr-2"
+                    className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 shadow transition duration-200 mr-2"
                     disabled={currentPage === 1}
                 >
                     Previous
@@ -175,13 +175,13 @@ const ManageRegisteredCamps = () => {
                 <span className="font-semibold">{`Page ${currentPage}`}</span>
                 <button
                     onClick={() => handlePageChange(currentPage + 1)}
-                    className="btn btn-sm ml-2"
+                    className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 shadow transition duration-200 ml-2"
                     disabled={currentPage * rowsPerPage >= filteredParticipants.length}
                 >
                     Next
                 </button>
             </div>
-        </section>
+        </div>
     );
 };
 

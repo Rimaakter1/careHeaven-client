@@ -52,7 +52,6 @@ const RegisteredCamps = () => {
                 refetch();
             }
         });
-
     };
 
     const handleFeedbackSubmit = async () => {
@@ -104,60 +103,59 @@ const RegisteredCamps = () => {
         }
     };
 
-    if (isLoading) return <Loading></Loading>;
+    if (isLoading) return <Loading />;
 
     return (
-        <section className="py-8 px-4">
-            <h1 className="text-3xl font-bold mb-6">My Registered Camps</h1>
+        <section className="py-8 px-4 dark:bg-gray-800 dark:text-white min-h-screen">
+            <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center dark:text-white">My Registered Camps</h1>
 
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-            <table className="table-auto w-full border-collapse border border-gray-300">
+            <table className="table-auto w-full border-collapse border border-gray-300 dark:border-gray-700">
                 <thead>
-                    <tr className="bg-gray-100">
-                        <th className="border border-gray-300 px-4 py-2">Camp Name</th>
-                        <th className="border border-gray-300 px-4 py-2">Camp Fees</th>
-                        <th className="border border-gray-300 px-4 py-2">Participant Name</th>
-                        <th className="border border-gray-300 px-4 py-2">Payment Status</th>
-                        <th className="border border-gray-300 px-4 py-2">Confirmation Status</th>
-                        <th className="border border-gray-300 px-4 py-2">Cancel Button</th>
-                        <th className="border border-gray-300 px-4 py-2">Feedback Button</th>
+                    <tr className="bg-gray-100 dark:bg-gray-900">
+                        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Camp Name</th>
+                        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Camp Fees</th>
+                        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Participant Name</th>
+                        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Payment Status</th>
+                        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Confirmation Status</th>
+                        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Cancel</th>
+                        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Feedback</th>
                     </tr>
                 </thead>
                 <tbody>
                     {paginatedCamps.map((camp) => (
-                        <tr key={camp.campId} className="text-center">
-                            <td className="border border-gray-300 px-4 py-2">{camp.campName}</td>
-                            <td className="border border-gray-300 px-4 py-2">{camp.campFees}</td>
-                            <td className="border border-gray-300 px-4 py-2">{camp.participantName}</td>
-                            <td className="border border-gray-300 px-4 py-2">
+                        <tr key={camp.campId} className="text-center dark:bg-gray-900">
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{camp.campName}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{camp.campFees}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{camp.participantName}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                                 {camp.paymentStatus === "paid" ? (
-                                    <span className="text-green-600 font-semibold">Paid</span>
+                                    <span className="text-green-600 dark:text-green-400 font-semibold">Paid</span>
                                 ) : (
                                     <Link
                                         to={`/dashboard/payment/${camp._id}`}
-                                        className="btn btn-sm btn-primary"
+                                        className="btn btn-sm btn-primary dark:bg-blue-500 dark:text-white"
                                         disabled={camp.paymentStatus === "Paid"}
                                     >
                                         {camp.paymentStatus === "Paid" ? camp.paymentStatus : "Pay"}
                                     </Link>
                                 )}
                             </td>
-                            <td className="border border-gray-300 px-4 py-2">{camp.paymentConfirmationStatus}</td>
-                            <td className="border border-gray-300 px-4 py-2 space-x-2">
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{camp.paymentConfirmationStatus}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                                 <button
-                                    className={`btn btn-sm ${camp.paymentStatus === "paid" ? "btn-disabled" : "btn-warning"
-                                        }`}
+                                    className={`btn btn-sm ${camp.paymentStatus === "paid" ? "btn-disabled" : "btn-warning  dark:text-white"}`}
                                     onClick={() => handleCancel(camp.campId)}
                                     disabled={camp.paymentStatus === "Paid"}
                                 >
                                     Cancel
                                 </button>
                             </td>
-                            <td className="border border-gray-300 px-4 py-2 space-x-2">
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
                                 {camp.paymentStatus === "Paid" && camp.paymentConfirmationStatus === "Confirmed" ? (
                                     <button
-                                        className="btn btn-sm btn-secondary"
+                                        className="btn btn-sm btn-secondary dark:bg-gray-700 dark:text-white"
                                         onClick={() => {
                                             setSelectedCampId(camp.campId);
                                             setIsModalOpen(true);
@@ -166,40 +164,20 @@ const RegisteredCamps = () => {
                                         Feedback
                                     </button>
                                 ) : (
-                                    <button>N/A</button>
+                                    <button className="dark:text-gray-400">N/A</button>
                                 )}
                             </td>
                         </tr>
                     ))}
                     {filteredCamps.length === 0 && (
                         <tr>
-                            <td colSpan="5" className="py-4 text-center text-gray-500">
+                            <td colSpan="7" className="py-4 text-center text-gray-500 dark:text-gray-400">
                                 No camp found.
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
-
-            <div className="flex justify-center space-x-4 mt-4">
-                <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="btn btn-sm"
-                >
-                    Previous
-                </button>
-                <span className="text-center">
-                    Page {currentPage} of {totalPages}
-                </span>
-                <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="btn btn-sm"
-                >
-                    Next
-                </button>
-            </div>
 
             <Modal
                 isOpen={isModalOpen}
