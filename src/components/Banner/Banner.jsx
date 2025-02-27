@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
     return (
@@ -34,9 +35,9 @@ const Banner = () => {
                             Discover how our medical camps have transformed lives by providing
                             free healthcare services to those in need.
                         </p>
-                        <button className="px-10 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-lg shadow-md hover:opacity-90">
+                        <Link to="/login" className="px-10 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-lg shadow-md hover:opacity-90">
                             Join Us
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </SwiperSlide>
@@ -54,9 +55,9 @@ const Banner = () => {
                             Our initiatives focus on bringing healthcare to remote areas,
                             ensuring everyone has access to basic medical support.
                         </p>
-                        <button className="px-10 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-lg shadow-md hover:opacity-90">
+                        <Link to="/available-camps" className="px-10 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-lg shadow-md hover:opacity-90">
                             Explore Now
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </SwiperSlide>
@@ -74,9 +75,9 @@ const Banner = () => {
                             Join us in our journey to make healthcare accessible for
                             underprivileged communities worldwide.
                         </p>
-                        <button className="px-10 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-lg shadow-md hover:opacity-90">
+                        <Link to="/available-camps" className="px-10 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-lg shadow-md hover:opacity-90">
                             See Camps
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </SwiperSlide>

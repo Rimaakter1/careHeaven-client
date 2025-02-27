@@ -25,11 +25,9 @@ const Footer = () => {
                                 <Link to="/available-camps" className="link link-hover dark:text-gray-400">Available Camps</Link>
                             </li>
                             <li>
-                                <a href="#" className="link link-hover dark:text-gray-400">About</a>
+                                <Link to="/all-services" className="link link-hover dark:text-gray-400">Services</Link>
                             </li>
-                            <li>
-                                <a href="#" className="link link-hover dark:text-gray-400">Popular Camps</a>
-                            </li>
+
                         </ul>
                     </div>
                     <div>

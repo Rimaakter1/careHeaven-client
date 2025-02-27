@@ -25,7 +25,7 @@ const Analytics = () => {
     }
 
     return (
-        <div className="dark:bg-gray-900 dark:text-white min-h-screen py-8">
+        <div className="dark:bg-gray-800 dark:text-white min-h-screen py-8">
             <div className="w-full md:w-11/12 lg:w-10/12 mx-auto">
                 <h2 className="text-2xl font-bold text-center mb-6">Analytics</h2>
 

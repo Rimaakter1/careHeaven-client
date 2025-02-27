@@ -53,6 +53,8 @@ const Register = () => {
                 name: data.displayName,
                 image: data.photoUrl,
                 email: data.email,
+                phone: data.phone,
+                address: data.address,
             });
             navigate('/');
             Swal.fire({
@@ -143,6 +145,31 @@ const Register = () => {
                                 className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                             />
                             {errors.photoUrl && <span className="text-red-500 text-sm">{errors.photoUrl.message}</span>}
+
+                            <input
+                                type="text"
+                                placeholder="Phone Number"
+                                {...register("phone", {
+                                    required: "Phone number is required",
+                                    pattern: {
+                                        value: /^[0-9]{11}$/,
+                                        message: "Phone number must be 10 digits"
+                                    }
+                                })}
+                                className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
+                            />
+                            {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
+
+                            <input
+                                type="text"
+                                placeholder="Address"
+                                {...register("address", {
+                                    required: "Address is required",
+                                    minLength: { value: 10, message: "Address must be at least 10 characters" }
+                                })}
+                                className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
+                            />
+                            {errors.address && <span className="text-red-500 text-sm">{errors.address.message}</span>}
 
                             <button type="submit" className="bg-blue-500 text-white py-3 rounded-md font-semibold w-full dark:bg-blue-700 dark:hover:bg-blue-600">
                                 Register

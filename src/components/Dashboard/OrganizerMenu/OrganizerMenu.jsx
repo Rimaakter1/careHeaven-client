@@ -1,8 +1,9 @@
-import { FaUserCircle, FaPlus, FaTasks, FaClipboardList } from "react-icons/fa";
+import { FaUserCircle, FaPlus, FaTasks, FaClipboardList, FaChartBar } from "react-icons/fa";
 import DashboardMenu from "../shared/DashboardMenu";
 
 const OrganizerMenu = () => {
     const menuItems = [
+        { label: "Overview", path: "/dashboard/admin-overview", icon: FaChartBar  },
         { label: "Organizer Profile", path: "/dashboard", icon: FaUserCircle },
         { label: "Add A Camp", path: "/dashboard/add-camp", icon: FaPlus },
         { label: "Manage Camps", path: "/dashboard/manage-camps", icon: FaTasks },

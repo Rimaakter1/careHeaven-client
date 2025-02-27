@@ -19,6 +19,7 @@ import PaymentHistory from '../pages/Dashboard/PaymentHistory/PaymentHistory'
 import ManageRegisteredCamps from '../pages/Dashboard/Admin/ManageRegisteredCamps/ManageRegisteredCamps'
 import Analytics from '../pages/Dashboard/Analytics/Analytics'
 import AllServices from '../pages/AllServices/AllServices'
+import AdminOverview from '../pages/Dashboard/Admin/AdminOverview/AdminOverview'
 
 
 export const router = createBrowserRouter([
@@ -88,6 +89,12 @@ export const router = createBrowserRouter([
                     <AdminRoute>
                         <UpdateCamp></UpdateCamp>
                     </AdminRoute>
+                </PrivateRoute>
+            },
+            {
+                path: 'admin-overview',
+                element: <PrivateRoute>
+                    <AdminOverview></AdminOverview>
                 </PrivateRoute>
             },
             {
