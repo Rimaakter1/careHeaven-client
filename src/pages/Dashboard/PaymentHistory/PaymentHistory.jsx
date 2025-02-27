@@ -36,74 +36,76 @@ const PaymentHistory = () => {
         setCurrentPage(pageNumber);
     };
 
-    if (isLoading) return <Loading></Loading>;
+    if (isLoading) return <Loading />;
 
     return (
-        <section className="py-8 px-4">
-            <h1 className="text-3xl font-bold mb-6">Payment History</h1>
+        <div className="min-h-screen bg-white dark:bg-gray-800 text-gray-800 dark:text-white transition-colors duration-300">
+            <section className="py-8 px-4">
+                <h1 className="text-3xl font-bold mb-6 text-center">Payment History</h1>
 
-            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-            <table className="table-auto w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th className="border border-gray-300 px-4 py-2">Transaction Id</th>
-                        <th className="border border-gray-300 px-4 py-2">Camp Name</th>
-                        <th className="border border-gray-300 px-4 py-2">Fees</th>
-                        <th className="border border-gray-300 px-4 py-2">Payment Status</th>
-                        <th className="border border-gray-300 px-4 py-2">Confirmation Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentPayments.map((payment) => (
-                        <tr key={payment._id} className="text-center">
-                            <td className="border border-gray-300 px-4 py-2">{payment.transactionId}</td>
-                            <td className="border border-gray-300 px-4 py-2">{payment.campName}</td>
-                            <td className="border border-gray-300 px-4 py-2">${payment.campFees}</td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                <span
-                                    className={
-                                        payment.paymentStatus === "Paid"
-                                            ? "text-green-600 font-semibold"
-                                            : "text-red-600 font-semibold"
-                                    }
-                                >
-                                    {payment.paymentStatus}
-                                </span>
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                {payment.paymentConfirmationStatus}
-                            </td>
+                <table className="table-auto w-full border-collapse border border-gray-300 dark:border-gray-600">
+                    <thead>
+                        <tr className="bg-gray-100 dark:bg-gray-800">
+                            <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Transaction Id</th>
+                            <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Camp Name</th>
+                            <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Fees</th>
+                            <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Payment Status</th>
+                            <th className="border border-gray-300 dark:border-gray-600 px-4 py-2">Confirmation Status</th>
                         </tr>
-                    ))}
-                    {filteredPayments.length === 0 && (
-                        <tr>
-                            <td colSpan="5" className="py-4 text-center text-gray-500">
-                                No payment history found.
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {currentPayments.map((payment) => (
+                            <tr key={payment._id} className="text-center">
+                                <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{payment.transactionId}</td>
+                                <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{payment.campName}</td>
+                                <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">${payment.campFees}</td>
+                                <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                                    <span
+                                        className={
+                                            payment.paymentStatus === "Paid"
+                                                ? "text-green-600 dark:text-green-400 font-semibold"
+                                                : "text-red-600 dark:text-red-400 font-semibold"
+                                        }
+                                    >
+                                        {payment.paymentStatus}
+                                    </span>
+                                </td>
+                                <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                                    {payment.paymentConfirmationStatus}
+                                </td>
+                            </tr>
+                        ))}
+                        {filteredPayments.length === 0 && (
+                            <tr>
+                                <td colSpan="5" className="py-4 text-center text-gray-500 dark:text-gray-400">
+                                    No payment history found.
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
 
-            <div className="flex justify-center mt-4">
-                <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    className="btn btn-sm mr-2"
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-                <span className="font-semibold">{`Page ${currentPage}`}</span>
-                <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    className="btn btn-sm ml-2"
-                    disabled={currentPage * rowsPerPage >= filteredPayments.length}
-                >
-                    Next
-                </button>
-            </div>
-        </section>
+                <div className="flex justify-center mt-4">
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        className="btn btn-sm mr-2 bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+                        disabled={currentPage === 1}
+                    >
+                        Previous
+                    </button>
+                    <span className="font-semibold dark:text-gray-300">{`Page ${currentPage}`}</span>
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        className="btn btn-sm ml-2 bg-gray-200 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+                        disabled={currentPage * rowsPerPage >= filteredPayments.length}
+                    >
+                        Next
+                    </button>
+                </div>
+            </section>
+        </div>
     );
 };
 

@@ -11,6 +11,7 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const { createUser, signInWithGoogle, updateUserProfile } = useAuth();
     const navigate = useNavigate()
+
     const handleGoogleLogin = async () => {
         try {
             const data = await signInWithGoogle();
@@ -70,15 +71,12 @@ const Register = () => {
         }
     };
 
-
-
-
     return (
-        <div className='bg-gray-100'>
-            <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen w-10/12 mx-auto py-8 ">
+        <div className='bg-gray-100 dark:bg-gray-700 mt-20'>
+            <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen w-10/12 mx-auto py-8">
                 <div className="flex flex-col justify-center items-start">
-                    <div className="w-full bg-white shadow-md rounded-md p-6">
-                        <h2 className="text-3xl font-bold mb-6 text-left">Register</h2>
+                    <div className="w-full bg-white dark:bg-gray-800 shadow-md rounded-l-md p-6">
+                        <h2 className="text-3xl font-bold mb-6 text-left text-gray-900 dark:text-white">Register</h2>
                         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
                             <input
                                 type="text"
@@ -87,7 +85,7 @@ const Register = () => {
                                     required: "Name is required",
                                     minLength: { value: 3, message: "Name must be at least 3 characters" }
                                 })}
-                                className="p-3 border rounded-md focus:outline-none focus:ring w-full"
+                                className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                             />
                             {errors.displayName && <span className="text-red-500 text-sm">{errors.displayName.message}</span>}
 
@@ -101,7 +99,7 @@ const Register = () => {
                                         message: "Invalid email address"
                                     }
                                 })}
-                                className="p-3 border rounded-md focus:outline-none focus:ring w-full"
+                                className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                             />
                             {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
 
@@ -117,7 +115,7 @@ const Register = () => {
                                         message: "Password must contain at least one uppercase letter, one lowercase letter, and one number"
                                     }
                                 })}
-                                className="p-3 border rounded-md focus:outline-none focus:ring w-full"
+                                className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                             />
                             {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
 
@@ -128,7 +126,7 @@ const Register = () => {
                                     required: "Please confirm your password",
                                     validate: (value) => value === watch('password') || "Passwords don't match"
                                 })}
-                                className="p-3 border rounded-md focus:outline-none focus:ring w-full"
+                                className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                             />
                             {errors.confirmPassword && <span className="text-red-500 text-sm">{errors.confirmPassword.message}</span>}
 
@@ -142,25 +140,25 @@ const Register = () => {
                                         message: "Invalid URL"
                                     }
                                 })}
-                                className="p-3 border rounded-md focus:outline-none focus:ring w-full"
+                                className="p-3 border rounded-md focus:outline-none focus:ring w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                             />
                             {errors.photoUrl && <span className="text-red-500 text-sm">{errors.photoUrl.message}</span>}
 
-                            <button type="submit" className="bg-blue-500 text-white py-3 rounded-md font-semibold w-full">
+                            <button type="submit" className="bg-blue-500 text-white py-3 rounded-md font-semibold w-full dark:bg-blue-700 dark:hover:bg-blue-600">
                                 Register
                             </button>
                         </form>
 
                         <button
                             onClick={handleGoogleLogin}
-                            className="flex items-center justify-center space-x-2 mt-4 bg-blue-950 text-white py-3 rounded-md w-full font-semibold"
+                            className="flex items-center justify-center space-x-2 mt-4 bg-blue-950 text-white py-3 rounded-md w-full font-semibold dark:bg-blue-800 dark:hover:bg-blue-700"
                         >
                             <FcGoogle /> <span>Register with Google</span>
                         </button>
 
-                        <p className="mt-4 text-sm text-center">
+                        <p className="mt-4 text-sm text-center text-gray-900 dark:text-gray-400">
                             Already have an account?{" "}
-                            <Link to="/login" className="text-blue-500 underline">Login</Link>
+                            <Link to="/login" className="text-blue-500 underline dark:text-blue-400 dark:hover:text-blue-500">Login</Link>
                         </p>
                     </div>
                 </div>
